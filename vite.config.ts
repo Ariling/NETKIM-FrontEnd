@@ -1,16 +1,12 @@
-import { InlineConfig, UserConfig, defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
-interface VitestConfigExport extends UserConfig {
-  test: InlineConfig;
-}
-
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tsconfigPaths()],
   test: {
     globals: true,
-    environment: "jsdom",
-    setupFiles: "./src/test/setup.ts",
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
   },
-} as VitestConfigExport);
+});

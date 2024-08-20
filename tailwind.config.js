@@ -24,7 +24,14 @@ export default {
         // 글 쓰기 컬러
         'basic': '#F7F3ED',
       },
+      borderColor: {
+        'gray-border': 'var(--grey-300, #eaecee)',
+      },
+      borderWidth: {
+        'border-1': '1px',
+      },
     },
   },
   plugins: [],
+  mode: 'jit',
 };

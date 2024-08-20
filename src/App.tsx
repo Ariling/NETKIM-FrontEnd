@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router-dom';
+import Nav from './components/Layout/Nav';
 
 function App() {
   return (
     <>
-      <div>헤더</div>
+      <Nav />
       <Outlet />
       <div>푸터</div>
     </>

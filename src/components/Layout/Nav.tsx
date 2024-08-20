@@ -82,6 +82,7 @@ const Nav = () => {
     <div className="fixed top-0 z-[1000] w-full h-14 bg-white flex justify-center items-center border-b-border-1 border-b-gray-border">
       <div className=" box-border relative w-full px-0 py-10 flex justify-between items-center">
         <div className="w-3/5 flex justify-between items-center">
+          로고 나오는 곳
           <div onClick={() => navigate('/')} />
         </div>
 
@@ -108,7 +109,7 @@ const Nav = () => {
         </div>
         {profileModal && (
           <div
-            className="absoulte top-12 right-0.5 z-[999] w-32 h-[88px] rounded-md bg-white flex flex-col justify-center items-center"
+            className="absolute top-24 right-0.5 z-[999] w-32 h-[88px] rounded-md bg-white flex flex-col justify-center items-center"
             ref={modalRef}
           >
             <div
@@ -116,7 +117,7 @@ const Nav = () => {
                 navigate('/mypage');
                 setProfileModal((pre) => !pre);
               }}
-              className="w-[120px] h-10 rounded cursor-pointer text-base"
+              className="flex items-center gap-2 w-[120px] h-10 rounded cursor-pointer text-base"
             >
               <Edit />
               편집페이지
@@ -126,7 +127,7 @@ const Nav = () => {
                 setProfileModal((pre) => !pre);
                 navigate('/');
               }}
-              className="w-[120px] h-10 rounded cursor-pointer text-base"
+              className="flex items-center gap-2 w-[120px] h-10 rounded cursor-pointer text-base"
             >
               <Logout />
               로그아웃

@@ -1,5 +1,11 @@
+import ListTable from '@/components/Admin/ListTable';
+
 const AdminPage = () => {
-  return <div>AdminPage</div>;
+  return (
+    <div>
+      <ListTable />
+    </div>
+  );
 };
 
 export default AdminPage;

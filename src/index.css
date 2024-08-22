@@ -47,6 +47,10 @@ textarea:focus {
   outline: none;
 }
 
+textarea::-webkit-scrollbar {
+  display: none;
+}
+
 @layer components {
   .check_btn {
     &::before {

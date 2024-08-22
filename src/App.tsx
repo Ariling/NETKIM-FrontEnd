@@ -5,8 +5,9 @@ function App() {
   return (
     <>
       <Nav />
-      <Outlet />
-      <div>푸터</div>
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 }

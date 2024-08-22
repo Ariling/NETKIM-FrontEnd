@@ -91,6 +91,7 @@ const Nav = () => {
             <div
               ref={buttonRef}
               onClick={() => setProfileModal((pre) => !pre)}
+              className="flex items-center gap-1.5"
               style={{
                 backgroundColor: profileModal ? 'var(--grey-300, #eaecee)' : '',
               }}
@@ -114,7 +115,7 @@ const Nav = () => {
           >
             <div
               onClick={() => {
-                navigate('/mypage');
+                navigate('/edit');
                 setProfileModal((pre) => !pre);
               }}
               className="flex items-center gap-2 w-[120px] h-10 rounded cursor-pointer text-base"

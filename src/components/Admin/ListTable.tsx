@@ -24,7 +24,7 @@ const ListTable = () => {
   };
   return (
     <>
-      <div className="relative overflow-x-auto w-1/2">
+      <div className="relative overflow-x-auto w-full">
         <table className="w-full text-sm text-center text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className="bg-neutral-100 text-center">

@@ -7,7 +7,13 @@ const EditTextArea = ({ data }: { data: string }) => {
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setData(data as TEdit, e.target.value);
   };
-  return <textarea value={editProp[data as TEdit]} onChange={onChange} />;
+  return (
+    <textarea
+      className="w-full h-12 bg-basic rounded-lg resize-none p-2"
+      value={editProp[data as TEdit]}
+      onChange={onChange}
+    />
+  );
 };
 
 export default EditTextArea;

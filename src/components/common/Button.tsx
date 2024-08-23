@@ -1,4 +1,4 @@
-type ButtonProps = {
+export type ButtonProps = {
   name: string;
   className?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;

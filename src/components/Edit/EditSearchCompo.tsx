@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import Search from '@assets/svg/search.svg?react';
+import { useEditStore } from '@/store/useEditStore';
 
 const EditSearchCompo = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const { searchProp } = useEditStore((state) => state.states);
+  const { setSearchData } = useEditStore((state) => state.actions);
+  const [click, setClick] = useState(-1);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
@@ -12,86 +17,61 @@ const EditSearchCompo = () => {
   //     getResultList(searchTerm);
   //   }, [searchTerm]);
   return (
-    <>
-      <input type="text" placeholder="검색" value={searchTerm} onChange={handleInputChange} />
-      {/* {searchMusic.map((e, index) => {
-        if (click === index) {
+    <div className="w-full h-screen flex flex-col justify-center items-center gap-6">
+      <div className="flex items-center gap-4">
+        {wayArray.map((e) => {
           return (
-            <M.SongSearchList
-              className="click"
-              onClick={() => {
-                onClick(-1);
-                resetSong();
-              }}
-            >
-              <img src={e.imageUrl} alt="albumImg" />
-              <MusicBoxWrapper>
-                <div className="title">{e.title}</div>
-                <div className="artist">{e.artistName}</div>
-              </MusicBoxWrapper>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M5 12.5L9.667 17L19 8"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </M.SongSearchList>
+            <>
+              <input
+                type="radio"
+                name="way"
+                key={e}
+                value={e}
+                id={e}
+                className="hidden"
+                checked={way === e}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setWay(e.target.value);
+                }}
+              />
+              <label htmlFor={e} className="check_btn">
+                {e}
+              </label>
+            </>
           );
-        } else {
+        })}
+      </div>
+      <div>
+        <div
+          className={`flex items-center py-4 px-3 min-w-[800px] w-[55%] bg-white rounded-ss-lg rounded-se-lg border-2 border-peach ${
+            searchProp.length === 0 ? 'rounded-lg' : 'border-b-0'
+          }`}
+        >
+          <input
+            type="text"
+            placeholder="검색"
+            className="w-[96%]"
+            value={searchTerm}
+            onChange={handleInputChange}
+          />
+          <Search />
+        </div>
+        {searchProp.map((e, index) => {
           return (
-            <M.SongSearchList
-              onClick={() => {
-                onClick(index);
-                setClickSong((prevModal) => ({
-                  ...prevModal,
-                  song: {
-                    title: e.title,
-                    singer: e.artistName,
-                    imageUrl: e.imageUrl,
-                  },
-                }));
-              }}
+            <div
+              className={`border-border-1 border-[#CCCCCC] ${
+                index === 0 ? '' : 'border-t-0'
+              } py-4 px-3 text-start hover:bg-peach-light hover:text-white ${
+                click === index ? 'bg-peach-semiThick text-white' : 'bg-white text-[#666666]'
+              } ${index === searchProp.length - 1 ? 'rounded-es-lg rounded-ee-lg' : ''}`}
+              onClick={() => setClick(index)}
             >
-              <img className="albumImg" src={e.imageUrl} alt="albumImg" />
-              <MusicBoxWrapper>
-                <div className="title">{e.title}</div>
-                <div className="artist">{e.artistName}</div>
-              </MusicBoxWrapper>
-            </M.SongSearchList>
-          );
-        }
-      })} */}
-      {wayArray.map((e) => {
-        return (
-          <>
-            <input
-              type="radio"
-              name="way"
-              key={e}
-              value={e}
-              id={e}
-              className="hidden"
-              checked={way === e}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setWay(e.target.value);
-              }}
-            />
-            <label htmlFor={e} className="check_btn">
               {e}
-            </label>
-          </>
-        );
-      })}
-    </>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 

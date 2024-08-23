@@ -13,10 +13,12 @@ type TEditProp = {
 type TEditStore = {
   states: {
     editProp: TEditProp;
+    searchProp: Array<string>;
   };
   actions: {
     setData: (dataType: TEdit, data: string) => void;
     setEditData: (data: TEditProp) => void;
+    setSearchData: (data: Array<string>) => void;
     resetData: () => void;
   };
 };
@@ -32,6 +34,7 @@ export const useEditStore = create<TEditStore>()(
         location: '',
         interview: '',
       },
+      searchProp: ['뮤지컬1', '뮤지컬2', '뮤지컬3'],
     },
     actions: {
       setData: (dataType: TEdit, data: string) => {
@@ -42,6 +45,14 @@ export const useEditStore = create<TEditStore>()(
               ...state.states.editProp,
               [`${dataType}`]: data,
             },
+          },
+        }));
+      },
+      setSearchData: (data: Array<string>) => {
+        set((state) => ({
+          states: {
+            ...state.states,
+            searchProp: data,
           },
         }));
       },

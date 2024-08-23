@@ -1,9 +1,7 @@
 import Card from '../common/Card';
 import EditTextArea from './EditTextArea';
-import Pencil from '@assets/svg/write.svg?react';
-import Check from '@assets/svg/Checkbox.svg?react';
-import UnCheck from '@assets/svg/UnCheckbox.svg?react';
 import Btn from '../common/Btn';
+import { useState } from 'react';
 
 const EditPageCompo = () => {
   const editArray = [
@@ -14,22 +12,22 @@ const EditPageCompo = () => {
     { state: 'location', content: '장소*' },
     { state: 'interview', content: '인터뷰' },
   ];
+  const [check, setCheck] = useState(Array.from(Array(editArray.length), (_) => false));
   return (
     <div className="mt-20 w-full h-full flex justify-center gap-12">
       <Card name="Edit툴" className="min-w-[510px] max-h-[807px]">
         <div className="flex items-center h-[8%] w-full px-6 py-5 font-bold text-3xl">Edit</div>
         <div className="px-[31px] w-full">
-          {editArray.map((e) => {
+          {editArray.map((e, index) => {
             return (
-              <div className="flex flex-col gap-3 justify-center items-start mb-2.5">
-                <div className="flex w-full items-center justify-between">
-                  <div>{e.content}</div>
-                  <div className="flex items-center gap-2">
-                    <Pencil />
-                    <Check />
-                  </div>
-                </div>
-                <EditTextArea data={e.state} />
+              <div className="flex flex-col gap-3 justify-center items-start mb-2.5" key={e.state}>
+                <EditTextArea
+                  data={e.state}
+                  index={index}
+                  content={e.content}
+                  check={check}
+                  setCheck={setCheck}
+                />
               </div>
             );
           })}

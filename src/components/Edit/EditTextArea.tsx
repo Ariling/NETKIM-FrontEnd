@@ -32,7 +32,12 @@ const EditTextArea = ({ data, index, content, check, setCheck }: Prop) => {
         <div>{content}</div>
         <div className="flex items-center gap-2">
           {edit ? (
-            <Pencil onClick={() => setEdit(!edit)} />
+            <Pencil
+              onClick={() => {
+                setEdit(!edit);
+                changeCheck(index, true);
+              }}
+            />
           ) : (
             <button onClick={() => setEdit(!edit)}>변경</button>
           )}
@@ -44,7 +49,7 @@ const EditTextArea = ({ data, index, content, check, setCheck }: Prop) => {
         </div>
       </div>
       <textarea
-        className="w-full h-12 bg-basic rounded-lg resize-none p-2"
+        className="w-full h-12 bg-basic rounded-lg resize-none p-2 disabled:text-gray-500"
         disabled={edit}
         value={editProp[data as TEdit]}
         onChange={onChange}

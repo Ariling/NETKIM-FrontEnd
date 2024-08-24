@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Search from '@assets/svg/search.svg?react';
 import { useEditStore } from '@/store/useEditStore';
+import { NumberReducer } from '@/store/editReducer';
+import { Button } from '../common/Button';
 
-const EditSearchCompo = () => {
+const EditSearchCompo = (props: NumberReducer) => {
   const [searchTerm, setSearchTerm] = useState('');
   const { searchProp } = useEditStore((state) => state.states);
   const { setSearchData } = useEditStore((state) => state.actions);
@@ -71,6 +73,13 @@ const EditSearchCompo = () => {
           );
         })}
       </div>
+      <Button
+        name="다음으로"
+        className=" w-80 h-20 rounded-[30px] font-black text-4xl"
+        onClick={() => {
+          props.dispath({ type: 'PLUS' });
+        }}
+      ></Button>
     </div>
   );
 };

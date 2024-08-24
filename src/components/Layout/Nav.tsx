@@ -80,8 +80,11 @@ const Nav = () => {
 
   return (
     <div className="fixed top-0 z-[1000] w-full h-14 bg-white flex justify-center items-center border-b-border-1 border-b-gray-border">
-      <div className=" box-border relative w-full px-0 py-10 flex justify-between items-center">
-        <div className="w-3/5 flex justify-between items-center">
+      <div className=" box-border relative w-full px-4 py-10 flex justify-between items-center">
+        <div className="w-3/5 flex justify-start items-center gap-4">
+          <span className="cursor-pointer" onClick={() => navigate('/')}>
+            로고이미지
+          </span>
           로고 나오는 곳
           <div onClick={() => navigate('/')} />
         </div>
@@ -110,7 +113,7 @@ const Nav = () => {
         </div>
         {profileModal && (
           <div
-            className="absolute top-24 right-0.5 z-[999] w-32 h-[88px] rounded-md bg-white flex flex-col justify-center items-center"
+            className="absolute top-24 right-4 z-[999] w-32 h-[88px] rounded-md bg-white flex flex-col justify-center items-center"
             ref={modalRef}
           >
             <div

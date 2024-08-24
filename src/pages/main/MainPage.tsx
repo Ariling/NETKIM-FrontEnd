@@ -1,7 +1,9 @@
 import { Button } from '@/components/common/Button';
 import MainFrame from '@assets/img/MainFrame.webp';
 import example from '@assets/img/EditExample.png';
+import { useNavigate } from 'react-router-dom';
 const MainPage = () => {
+  const router = useNavigate();
   return (
     <div className=" inline-block w-full h-screen">
       <div className="relative w-full h-[630px] flex items-center justify-center">
@@ -21,12 +23,12 @@ const MainPage = () => {
           />
         </div>
         {/* 이건 중앙에 있게 할거지만 지금은 이 상태로 냅두기 */}
-        <div className="w-full h-24 z-[30]">
+        <div className="relative w-full h-24">
           <Button
             name="작성하기"
-            className=" w-80 h-20 rounded-[30px] font-black text-4xl"
+            className=" w-80 h-20 rounded-[30px] font-black text-4xl z-50"
             onClick={() => {
-              alert('아니 뭐임?');
+              router('/edit');
             }}
           ></Button>
         </div>

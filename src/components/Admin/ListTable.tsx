@@ -62,13 +62,13 @@ const ListTable = () => {
                   </td>
                   <td className="px-4 py-4 text-center flex justify-center gap-2">
                     <div
-                      className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer"
+                      className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
                       onClick={() => alert('승낙버튼!')}
                     >
                       수락
                     </div>
                     <div
-                      className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer"
+                      className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
                       onClick={() => alert('취소버튼!')}
                     >
                       취소

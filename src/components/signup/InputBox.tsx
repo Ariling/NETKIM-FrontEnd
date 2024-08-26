@@ -1,18 +1,16 @@
-import { inputReducer } from '@/store/editReducer';
-import { useReducer } from 'react';
+import { InputReducder } from '@/store/editReducer';
 
-const InputBox = () => {
-  const [data, dispatch] = useReducer(inputReducer, '');
+const InputBox = (props: InputReducder) => {
   const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'CHANGE', payload: e.target.value });
+    props.dispatch({ type: 'CHANGE', payload: e.target.value });
   };
   return (
     <input
       placeholder="닉네임을 입력해주세요"
-      className=" font-Neo text-center"
+      className="font-Neo text-left h-10 w-[435px]"
       maxLength={15}
       onChange={onChangeData}
-      value={data}
+      value={props.state}
     />
   );
 };

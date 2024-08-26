@@ -35,7 +35,7 @@ const FileUpload = ({ fileText, setFileText }: FileProps) => {
         <div className="border-[1px] border-[#D5D7D9] border-solid rounded h-10 min-w-[435px] w-3/4 px-3 py-2 truncate">
           {!fileText ? (
             <div className="absolute top-2 left-3 text-[#B1B3B5]">
-              이력서 & 자기소개 제출 <span className="text-red-700">*</span>
+              사업장등록증 제출 <span className="text-red-700">*</span>
             </div>
           ) : (
             fileText.name

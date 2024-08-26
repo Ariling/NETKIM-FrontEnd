@@ -45,7 +45,11 @@ const EditPageCompo = (props: NumberReducer) => {
           />
           <Btn
             onClick={() => {
-              props.dispath({ type: 'PLUS' });
+              if (check.every((e, i) => i === check.length - 1 || e === true)) {
+                props.dispath({ type: 'PLUS' });
+              } else {
+                alert('필수에 체크해주세요');
+              }
             }}
             name="보도자료 생성하기"
             className="edit_btn bg-peach-thick"

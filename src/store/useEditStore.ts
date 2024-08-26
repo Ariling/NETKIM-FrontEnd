@@ -1,6 +1,11 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
+type TSearchProp = {
+  title: string;
+  type: string;
+};
+
 type TEditProp = {
   title: string;
   casting: string;
@@ -12,14 +17,16 @@ type TEditProp = {
 
 type TEditStore = {
   states: {
+    searchProp: TSearchProp;
     editProp: TEditProp;
-    searchProp: Array<string>;
+    toolProp: Array<string>;
   };
   actions: {
     setData: (dataType: TEdit, data: string) => void;
     setEditData: (data: TEditProp) => void;
-    setSearchData: (data: Array<string>) => void;
+    setToolData: (data: Array<string>) => void;
     resetData: () => void;
+    setSearchData: (dataType: TSearch, data: string) => void;
   };
 };
 
@@ -34,7 +41,12 @@ export const useEditStore = create<TEditStore>()(
         location: '',
         interview: '',
       },
-      searchProp: ['뮤지컬1', '뮤지컬2', '뮤지컬3'],
+      // 이게 search 바 찾는 것
+      toolProp: ['뮤지컬1', '뮤지컬2', '뮤지컬3', '뮤지컬4', '뮤지컬5', '뮤지컬6'],
+      searchProp: {
+        title: '',
+        type: '보도용',
+      },
     },
     actions: {
       setData: (dataType: TEdit, data: string) => {
@@ -48,11 +60,22 @@ export const useEditStore = create<TEditStore>()(
           },
         }));
       },
-      setSearchData: (data: Array<string>) => {
+      setSearchData: (dataType: TSearch, data: string) => {
         set((state) => ({
           states: {
             ...state.states,
-            searchProp: data,
+            searchProp: {
+              ...state.states.searchProp,
+              [`${dataType}`]: data,
+            },
+          },
+        }));
+      },
+      setToolData: (data: Array<string>) => {
+        set((state) => ({
+          states: {
+            ...state.states,
+            toolProp: data,
           },
         }));
       },

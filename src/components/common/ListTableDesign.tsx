@@ -23,7 +23,7 @@ const ListTableDesign = ({ children, type }: IDesignList) => {
             <tr className="bg-neutral-100 text-center">
               {headlist.map((e, i) => {
                 return (
-                  <th scope="col" className="px-3 py-3 w-auto">
+                  <th scope="col" className="px-3 py-3 w-auto" key={e}>
                     {e}
                   </th>
                 );

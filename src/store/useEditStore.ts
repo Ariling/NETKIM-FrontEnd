@@ -3,15 +3,16 @@ import { devtools } from 'zustand/middleware';
 
 type TSearchProp = {
   title: string;
-  type: string;
 };
 
 type TEditProp = {
+  img?: string;
   title: string;
   casting: string;
-  content: string;
+  feature: string;
   day: string;
   location: string;
+  openrun?: string;
   interview?: string;
 };
 
@@ -34,11 +35,13 @@ export const useEditStore = create<TEditStore>()(
   devtools((set) => ({
     states: {
       editProp: {
+        img: '',
         title: 'dd',
         casting: 'ff',
-        content: 'ss',
+        feature: 'ss',
         day: '',
         location: '',
+        openrun: '',
         interview: '',
       },
       // 이게 search 바 찾는 것
@@ -84,11 +87,13 @@ export const useEditStore = create<TEditStore>()(
           states: {
             ...state.states,
             editProp: {
+              img: '',
               title: '',
               casting: '',
-              content: '',
+              feature: '',
               day: '',
               location: '',
+              openturn: '',
               interview: '',
             },
           },

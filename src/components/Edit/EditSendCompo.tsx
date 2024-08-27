@@ -1,6 +1,8 @@
 import paperplane from '@assets/img/PaperPlane.png';
 import { Button } from '../common/Button';
+import { useNavigate } from 'react-router-dom';
 const EditSendCompo = () => {
+  const navigate = useNavigate();
   const handleEmailClick = () => {
     const recipients = 'ariettys2@naver.com, findurwind@gmail.com';
     const subject = encodeURIComponent('보도자료 작성');
@@ -51,14 +53,15 @@ ${fileLink}
         />
       </div>
       <div className="mt-11">보도자료가 작성되었습니다</div>
-      <div className="mb-11">
-        작성된 보도자료는 파일로 저장가능하거나 기자한테 발송할 수 있습니다.
-      </div>
+      <div className="mb-11">작성된 보도자료는 마이페이지에서 확인할 수 있습니다.</div>
       <div className="flex items-center gap-[18px]">
         <Button
-          name="파일저장"
+          name="마이페이지"
           className=" w-60 h-[50px] rounded-lg font-bold text-lg"
-          onClick={downloadFile}
+          onClick={() => {
+            navigate('/mypage');
+            localStorage.setItem('activeButton', '보도자료');
+          }}
         ></Button>
         <Button
           name="기자발송"

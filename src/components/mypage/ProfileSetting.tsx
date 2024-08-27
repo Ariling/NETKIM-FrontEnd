@@ -17,6 +17,7 @@ export const renderBox = (children: ReactNode, name: string) => {
 const ProfileSetting = () => {
   const [data, dispatch] = useReducer(inputReducer, '');
   const [fileText, setFileText] = useState<File>();
+  const [on, setOn] = useState<boolean>(true);
   return (
     <div className="mt-20 w-4/5 max-w-[800px] mx-auto">
       <Card name="회원가입 폼" className="w-full h-[685px]">
@@ -27,24 +28,38 @@ const ProfileSetting = () => {
                 <div> 여기 이메일이랑 이메일 인증 하기</div>
                 <button>이메일 인증 버튼</button>
               </div>
-              {renderBox(<InputBox state={data} dispatch={dispatch} />, '상호명')}
               {renderBox(
-                <FileUpload fileText={fileText} setFileText={setFileText} />,
+                <InputBox state={data} dispatch={dispatch} on={on} setOn={setOn} />,
+                '상호명'
+              )}
+              {renderBox(
+                <FileUpload fileText={fileText} setFileText={setFileText} on={on} />,
                 '사업자등록증'
               )}
-              <Btn
-                onClick={() => {
-                  if (data === '') {
-                    alert('사업자 이름을 기입해주세요');
-                  } else if (!fileText) {
-                    alert('파일을 첨부해주세요');
-                  } else {
-                    alert('회원가입 완료!');
-                  }
-                }}
-                name="등록하기"
-                className="edit_btn bg-peach-thick mt-5"
-              />
+              {on ? (
+                <Btn
+                  onClick={() => {
+                    setOn(false);
+                  }}
+                  name="변경하기"
+                  className="edit_btn bg-peach-semiThick mt-5"
+                />
+              ) : (
+                <Btn
+                  onClick={() => {
+                    if (data === '') {
+                      alert('사업자 이름을 기입해주세요');
+                    } else if (!fileText) {
+                      alert('파일을 첨부해주세요');
+                    } else {
+                      alert('등록완료!');
+                      setOn(true);
+                    }
+                  }}
+                  name="등록하기"
+                  className="edit_btn bg-peach-thick mt-5"
+                />
+              )}
             </div>
           </>
         }

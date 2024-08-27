@@ -7,11 +7,9 @@ import preview from '@assets/img/Preview.webp';
 
 const EditPageCompo = (props: NumberReducer) => {
   const editArray = [
-    { state: 'title', content: '제목*' },
     { state: 'casting', content: '등장인물*' },
-    { state: 'content', content: '줄거리*' },
-    { state: 'day', content: '날짜*' },
-    { state: 'location', content: '장소*' },
+    { state: 'feature', content: '줄거리*' },
+    { state: 'openrun', content: '좌석수' },
     { state: 'interview', content: '인터뷰' },
   ];
   const [check, setCheck] = useState(Array.from(Array(editArray.length), (_) => false));
@@ -45,7 +43,7 @@ const EditPageCompo = (props: NumberReducer) => {
           />
           <Btn
             onClick={() => {
-              if (check.every((e, i) => i === check.length - 1 || e === true)) {
+              if (check.slice(0, 2).every((item) => item === true)) {
                 props.dispath({ type: 'PLUS' });
               } else {
                 alert('필수에 체크해주세요');

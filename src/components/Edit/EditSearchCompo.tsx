@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from '@assets/svg/search.svg?react';
 import { useEditStore } from '@/store/useEditStore';
 import { NumberReducer } from '@/store/editReducer';
@@ -13,9 +13,9 @@ const EditSearchCompo = (props: NumberReducer) => {
     setSearchTerm(e.target.value);
     setSearchData('type' as TSearch, e.target.value);
   };
-  const wayArray = ['보도용', '홍보용', '결과용'];
-  // 이거 바꿀거
-  const [way, setWay] = useState('보도용');
+  useEffect(() => {
+    setSearchData('title' as TSearch, '');
+  }, []);
   //   useEffect(() => {
   //     getResultList(searchTerm);
   //   }, [searchTerm]);
@@ -23,29 +23,13 @@ const EditSearchCompo = (props: NumberReducer) => {
     <div className="w-full h-screen flex flex-col justify-center items-center gap-6">
       <div className="flex justify-between items-center min-w-[800px]">
         {/* 여기에 state관리 넣어서 관리할 것 */}
-        <div>{searchProp.title === '' ? <>뮤지컬을 검색해주세요</> : <>{searchProp.title}</>}</div>
-        <div className="flex items-center gap-4">
-          {wayArray.map((e) => {
-            return (
-              <>
-                <input
-                  type="radio"
-                  name="way"
-                  key={e}
-                  value={e}
-                  id={e}
-                  className="hidden"
-                  checked={way === e}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setWay(e.target.value);
-                  }}
-                />
-                <label htmlFor={e} className="check_btn">
-                  {e}
-                </label>
-              </>
-            );
-          })}
+        <div className="text-peach-text text-2xl">
+          <span className="font-bold">공연 제목</span> :{' '}
+          {searchProp.title === '' ? (
+            <span className="text-black">공연을 검색해주세요</span>
+          ) : (
+            <span className="text-black">{searchProp.title}</span>
+          )}
         </div>
       </div>
       <div>
@@ -67,6 +51,7 @@ const EditSearchCompo = (props: NumberReducer) => {
           {toolProp.map((e, index) => {
             return (
               <div
+                key={e}
                 className={`border-border-1 border-[#CCCCCC] ${
                   index === 0 ? '' : 'border-t-0'
                 } py-4 px-3 text-start hover:bg-peach-light hover:text-white ${

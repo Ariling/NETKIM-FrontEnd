@@ -3,9 +3,10 @@ import React from 'react';
 type FileProps = {
   fileText: File | undefined;
   setFileText: React.Dispatch<React.SetStateAction<File | undefined>>;
+  on: boolean;
 };
 
-const FileUpload = ({ fileText, setFileText }: FileProps) => {
+const FileUpload = ({ fileText, setFileText, on }: FileProps) => {
   const FILE_SIZE_MAX_LIMIT = 10 * 1024 * 1024;
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
@@ -42,7 +43,14 @@ const FileUpload = ({ fileText, setFileText }: FileProps) => {
           )}
         </div>
       </label>
-      <input id="file-upload" type="file" name="file" accept=".pdf, .docx" onChange={onChange} />
+      <input
+        id="file-upload"
+        type="file"
+        name="file"
+        accept=".pdf, .docx"
+        onChange={onChange}
+        disabled={on}
+      />
     </div>
   );
 };

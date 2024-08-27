@@ -62,7 +62,7 @@ const LoginCompo = () => {
                   alert('이메일 형식을 지키거나 비밀번호 8자리를 입력하세요');
                 }
               }}
-              className="edit_btn bg-peach-semiThick mt-5 mr-4"
+              className="edit_btn bg-peach-semiThick mt-5"
             />
             <Btn
               name="회원가입"

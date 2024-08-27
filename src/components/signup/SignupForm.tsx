@@ -1,20 +1,23 @@
-import { ReactNode, useReducer, useState } from 'react';
+import { useReducer, useState } from 'react';
 import Card from '../common/Card';
-import FileUpload from './FileUpload';
-import InputBox from './InputBox';
 import { inputReducer } from '@/store/editReducer';
 import Btn from '../common/Btn';
+import { useNavigate } from 'react-router-dom';
+import { regExpEmail } from '@/constants/regExp';
 
 const SignupForm = () => {
-  const [data, dispatch] = useReducer(inputReducer, '');
-  const [fileText, setFileText] = useState<File>();
-  const renderBox = (children: ReactNode, name: string) => {
-    return (
-      <div className="flex items-center justify-center gap-10 mb-5">
-        <Btn name={name} disabled className="bg-peach w-32 rounded-full py-1 text-white" />
-        {children}
-      </div>
-    );
+  const navigate = useNavigate();
+  const [email, emailMethod] = useReducer(inputReducer, '');
+  const [pw, pwMethod] = useReducer(inputReducer, '');
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidPw, setIsValidPw] = useState(false);
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    emailMethod({ type: 'CHANGE', payload: e.target.value });
+    setIsValidEmail(regExpEmail.test(email));
+  };
+  const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
+    pwMethod({ type: 'CHANGE', payload: e.target.value });
+    setIsValidPw(pw.length >= 7);
   };
   return (
     <div>
@@ -22,26 +25,43 @@ const SignupForm = () => {
         {
           <>
             <div className="flex items-center h-[15%] w-full bg-peach-light rounded-ss-[9px] rounded-se-[9px] px-6 font-bold text-3xl">
-              사업자등록
+              회원가입
+            </div>
+            <div className="w-4/5 flex flex-col justify-center items-center mt-10">
+              <div className="flex flex-col items-start mb-4">
+                <div className="text-lg font-semibold">이메일</div>
+                <input
+                  className="text-left h-10 w-full"
+                  placeholder="ex) abc@www.com"
+                  value={email}
+                  onChange={onChangeEmail}
+                />
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="text-lg font-semibold">비밀번호</div>
+                <input
+                  className="text-left h-10 w-full"
+                  placeholder="8자리 이상 입력"
+                  type="password"
+                  value={pw}
+                  onChange={onChangePw}
+                />
+              </div>
             </div>
             <div className="flex flex-col items-center  justify-center h-[75%] w-full">
-              {renderBox(<InputBox state={data} dispatch={dispatch} />, '상호명')}
-              {renderBox(
-                <FileUpload fileText={fileText} setFileText={setFileText} />,
-                '사업자등록증'
-              )}
               <Btn
+                name="회원가입"
                 onClick={() => {
-                  if (data === '') {
-                    alert('사업자 이름을 기입해주세요');
-                  } else if (!fileText) {
-                    alert('파일을 첨부해주세요');
+                  if (isValidEmail && isValidPw) {
+                    alert('회원가입 API');
+                    pwMethod({ type: 'RESET' });
+                    emailMethod({ type: 'RESET' });
+                    navigate('/login');
                   } else {
-                    alert('회원가입 완료!');
+                    alert('이메일 형식을 지키거나 비밀번호 8자리를 입력하세요');
                   }
                 }}
-                name="등록하기"
-                className="edit_btn bg-peach-thick mt-5"
+                className="edit_btn bg-peach-semiThick mt-5"
               />
             </div>
           </>

@@ -1,3 +1,3 @@
-type TEdit = 'title' | 'casting' | 'content' | 'day' | 'location' | 'interview';
+type TEdit = 'title' | 'casting' | 'feature' | 'day' | 'location' | 'interview';
 
 type TSearch = 'title' | 'type';

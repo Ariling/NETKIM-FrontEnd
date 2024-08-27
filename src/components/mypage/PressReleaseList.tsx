@@ -1,3 +1,4 @@
+import { useEditStore } from '@/store/useEditStore';
 import ListTableDesign from '../common/ListTableDesign';
 import Download from '@assets/svg/Download.svg?react';
 
@@ -9,6 +10,7 @@ type TList = {
 };
 
 const PressReleaseList = () => {
+  const { setOpen } = useEditStore((state) => state.actions);
   const lists: Array<TList> = [
     {
       id: 1,
@@ -51,7 +53,7 @@ const PressReleaseList = () => {
               </div>
               <div
                 className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
-                onClick={() => alert('기자발송 !')}
+                onClick={() => setOpen()}
               >
                 기자발송
               </div>

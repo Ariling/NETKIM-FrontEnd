@@ -1,6 +1,8 @@
 import paperplane from '@assets/img/PaperPlane.png';
 import { Button } from '../common/Button';
 import { useNavigate } from 'react-router-dom';
+import { useEditStore } from '@/store/useEditStore';
+
 const EditSendCompo = () => {
   const navigate = useNavigate();
   const handleEmailClick = () => {
@@ -17,6 +19,7 @@ ${fileLink}
 
     window.open(mailtoLink, '_blank');
   };
+  const { setOpen } = useEditStore((state) => state.actions);
   // const handleEmailClick = () => {
   //   const recipients = encodeURIComponent('ariettys2@naver.com,findurwind@gmail.com');
   //   const subject = encodeURIComponent('보도자료 작성');
@@ -66,7 +69,9 @@ ${fileLink}
         <Button
           name="기자발송"
           className=" w-60 h-[50px] rounded-lg font-bold text-lg"
-          onClick={handleEmailClick}
+          onClick={() => {
+            setOpen();
+          }}
         ></Button>
       </div>
     </div>

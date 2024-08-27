@@ -2,11 +2,14 @@ import { useReducer, useState } from 'react';
 import { inputReducer } from '@/store/editReducer';
 import Btn from '../common/Btn';
 import ReporterList from './ReporterList';
+import { regExpEmail } from '@/constants/regExp';
 
 const ReporterSetting = () => {
   const [data, dispatch] = useReducer(inputReducer, '');
+  const [isValidEmail, setIsValidEmail] = useState(false);
   const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: 'CHANGE', payload: e.target.value });
+    setIsValidEmail(regExpEmail.test(data));
   };
   const wayArray = ['기자', '언론', '인플루언서'];
   // 이거 바꿀거
@@ -24,7 +27,11 @@ const ReporterSetting = () => {
           <Btn
             name={'등록하기'}
             onClick={() => {
-              alert('등록하기');
+              if (isValidEmail) {
+                alert('등록하기');
+              } else {
+                alert('유효한 이메일 주소를 입력해주세요.');
+              }
               dispatch({ type: 'RESET' });
             }}
             className="bg-peach w-32 rounded-full py-1 text-white"

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Edit from '@assets/svg/Edit.svg?react';
 import Logout from '@assets/svg/Logout.svg?react';
+import Profile from '@assets/svg/Userprofile.svg?react';
 import Down from '@assets/svg/Down.svg?react';
 
 const Nav = () => {
@@ -113,7 +114,7 @@ const Nav = () => {
         </div>
         {profileModal && (
           <div
-            className="absolute top-24 right-4 z-[999] w-32 h-[88px] rounded-md bg-white flex flex-col justify-center items-center"
+            className="absolute top-24 right-4 z-[999] w-32 h-[128px] rounded-md bg-white flex flex-col justify-center items-center"
             ref={modalRef}
           >
             <div
@@ -125,6 +126,16 @@ const Nav = () => {
             >
               <Edit />
               편집페이지
+            </div>
+            <div
+              onClick={() => {
+                navigate('/mypage');
+                setProfileModal((pre) => !pre);
+              }}
+              className="flex items-center gap-2 w-[120px] h-10 rounded cursor-pointer text-base"
+            >
+              <Profile />
+              마이페이지
             </div>
             <div
               onClick={() => {

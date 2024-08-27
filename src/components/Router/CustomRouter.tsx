@@ -3,6 +3,7 @@ import AdminPage from '@/pages/admin/AdminPage';
 import EditOverView from '@/pages/edit/EditOverView';
 import LoginPage from '@/pages/login/LoginPage';
 import MainPage from '@/pages/main/MainPage';
+import MyPage from '@/pages/mypage/MyPage';
 import NotFound from '@/pages/notFound/NotFound';
 import SignupPage from '@/pages/signup/SignupPage';
 import { createBrowserRouter } from 'react-router-dom';
@@ -31,6 +32,10 @@ const CustomRouter = createBrowserRouter([
       {
         path: 'admin',
         element: <AdminPage />,
+      },
+      {
+        path: 'mypage',
+        element: <MyPage />,
       },
     ],
   },

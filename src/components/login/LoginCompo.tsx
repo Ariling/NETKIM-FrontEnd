@@ -59,7 +59,7 @@ const LoginCompo = () => {
                   setIsValidEmail(false);
                   setIsValidPw(false);
                 } else {
-                  alert('이메일 형식을 지키거나 비밀번호 8자리를 입력하세요');
+                  alert('이메일 또는 비밀번호를 입력해주세요');
                 }
               }}
               className="edit_btn bg-peach-semiThick mt-5"

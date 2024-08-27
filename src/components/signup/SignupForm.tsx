@@ -9,6 +9,7 @@ const SignupForm = () => {
   const navigate = useNavigate();
   const [email, emailMethod] = useReducer(inputReducer, '');
   const [pw, pwMethod] = useReducer(inputReducer, '');
+  const [phone, PhoneMethod] = useReducer(inputReducer, '');
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPw, setIsValidPw] = useState(false);
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,6 +19,10 @@ const SignupForm = () => {
   const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
     pwMethod({ type: 'CHANGE', payload: e.target.value });
     setIsValidPw(pw.length >= 7);
+  };
+  const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    PhoneMethod({ type: 'CHANGE', payload: value });
   };
   return (
     <div>
@@ -47,18 +52,30 @@ const SignupForm = () => {
                   onChange={onChangePw}
                 />
               </div>
+              <div className="flex flex-col items-start">
+                <div className="text-lg font-semibold">핸드폰</div>
+                <input
+                  type="text"
+                  value={phone}
+                  onChange={onChangePhone}
+                  maxLength={11}
+                  placeholder="-를 제외하고 입력해주세요"
+                  className="text-left h-10 w-full"
+                />
+              </div>
             </div>
             <div className="flex flex-col items-center  justify-center h-[75%] w-full">
               <Btn
                 name="회원가입"
                 onClick={() => {
-                  if (isValidEmail && isValidPw) {
+                  if (isValidEmail && isValidPw && phone.length === 11) {
                     alert('회원가입 API');
                     pwMethod({ type: 'RESET' });
                     emailMethod({ type: 'RESET' });
+                    PhoneMethod({ type: 'RESET' });
                     navigate('/login');
                   } else {
-                    alert('이메일 형식을 지키거나 비밀번호 8자리를 입력하세요');
+                    alert('회원가입 형식을 전부 형식에 맞게 입력해주세요');
                   }
                 }}
                 className="edit_btn bg-peach-semiThick mt-5"

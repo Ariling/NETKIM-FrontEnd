@@ -20,7 +20,7 @@ const ReporterSetting = () => {
         <div className="flex items-center gap-4">
           <input
             placeholder="이메일을 입력해주세요"
-            className="font-Neo text-left h-10 w-[240px]"
+            className="text-left h-10 w-[240px]"
             onChange={onChangeData}
             value={data}
           />

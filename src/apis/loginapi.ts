@@ -23,3 +23,23 @@ export const SignUpUserInfoApi = async (
     }
   }
 };
+
+export const LoginApi = async (email: string, password: string) => {
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('password', password);
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+  try {
+    const response = await apiClient.post('/api-member/login', formData, config);
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const result = error.response;
+      return result;
+    }
+  }
+};

@@ -1,8 +1,8 @@
 import Card from '../common/Card';
 import EditTextArea from './EditTextArea';
 import Btn from '../common/Btn';
-import { useEffect, useState } from 'react';
-import { NumberReducer } from '@/store/editReducer';
+import { Dispatch, useEffect, useState } from 'react';
+import { NumAction, NumberReducer } from '@/store/editReducer';
 import preview from '@assets/img/Preview.webp';
 import { useEditStore } from '@/store/useEditStore';
 import { getPrfInfoApi, postPressReleaseApi, previewApi } from '@/apis/pressapi';
@@ -13,7 +13,12 @@ interface IPreview {
   content: string;
 }
 
-const EditPageCompo = (props: NumberReducer) => {
+const EditPageCompo = (
+  props: NumberReducer & {
+    id: number;
+    setId: Dispatch<NumAction>;
+  }
+) => {
   const editArray = [
     { state: 'key', content: '키워드*' },
     { state: 'actors', content: '등장인물*' },
@@ -77,6 +82,7 @@ const EditPageCompo = (props: NumberReducer) => {
       editProp.interviewContent
     );
     if (result?.status === 200) {
+      props.setId({ type: 'CHANGE', payload: result.data.pressReleaseId });
       props.dispath({ type: 'PLUS' });
     } else {
       alert('생성 실패! 잠시만 기다려주세요');

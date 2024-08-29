@@ -42,10 +42,11 @@ const EditOverView = () => {
   }, [handleBeforeUnload, navigate, location]);
 
   const [step, dispatch] = useReducer(reducer, 1);
+  const [id, setId] = useReducer(reducer, 0);
   const getEditPage = (num: number) => {
     if (num === 1) return <EditSearchCompo state={step} dispath={dispatch} />;
-    if (num === 2) return <EditPageCompo state={step} dispath={dispatch} />;
-    if (num === 3) return <EditSendCompo />;
+    if (num === 2) return <EditPageCompo state={step} dispath={dispatch} id={id} setId={setId} />;
+    if (num === 3) return <EditSendCompo id={id} />;
   };
   return (
     <>

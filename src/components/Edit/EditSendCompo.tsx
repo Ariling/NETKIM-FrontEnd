@@ -3,7 +3,7 @@ import { Button } from '../common/Button';
 import { useNavigate } from 'react-router-dom';
 import { useEditStore } from '@/store/useEditStore';
 
-const EditSendCompo = () => {
+const EditSendCompo = ({ id }: { id: number }) => {
   const navigate = useNavigate();
   const handleEmailClick = () => {
     const recipients = 'ariettys2@naver.com, findurwind@gmail.com';
@@ -70,7 +70,7 @@ ${fileLink}
           name="기자발송"
           className=" w-60 h-[50px] rounded-lg font-bold text-lg"
           onClick={() => {
-            setOpen(1);
+            setOpen(id);
           }}
         ></Button>
       </div>

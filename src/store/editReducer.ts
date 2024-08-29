@@ -1,6 +1,10 @@
 import { Dispatch } from 'react';
 
-export type NumAction = { type: 'PLUS' } | { type: 'MINUS' } | { type: 'RESET' };
+export type NumAction =
+  | { type: 'PLUS' }
+  | { type: 'MINUS' }
+  | { type: 'RESET' }
+  | { type: 'CHANGE'; payload: number };
 export type SAction = { type: 'CHANGE'; payload: string } | { type: 'RESET' };
 
 export interface NumberReducer {
@@ -16,6 +20,8 @@ export function reducer(state: number, action: NumAction) {
       return state === 1 ? state : state - 1;
     case 'RESET':
       return 1;
+    case 'CHANGE':
+      return action.payload;
     default:
       return state;
   }

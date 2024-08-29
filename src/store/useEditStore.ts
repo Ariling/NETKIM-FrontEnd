@@ -48,7 +48,7 @@ export const useEditStore = create<TEditStore>()(
         interview: '',
       },
       // 이게 search 바 찾는 것
-      toolProp: ['뮤지컬1', '뮤지컬2', '뮤지컬3', '뮤지컬4', '뮤지컬5', '뮤지컬6'],
+      toolProp: [],
       searchProp: {
         title: '',
         type: '보도용',

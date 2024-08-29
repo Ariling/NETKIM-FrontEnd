@@ -3,22 +3,85 @@ import Search from '@assets/svg/search.svg?react';
 import { useEditStore } from '@/store/useEditStore';
 import { NumberReducer } from '@/store/editReducer';
 import { Button } from '../common/Button';
+import { getSearchApi } from '@/apis/pressapi';
+import debounce from 'lodash.debounce';
 
 const EditSearchCompo = (props: NumberReducer) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchData, setData] = useState([]);
   const { toolProp, searchProp } = useEditStore((state) => state.states);
   const { setToolData, setSearchData } = useEditStore((state) => state.actions);
   const [click, setClick] = useState(-1);
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setSearchData('type' as TSearch, e.target.value);
+  const convertEnglishToLowerCase = (input: string): string => {
+    return input.toLowerCase();
   };
+
+  const choseongIncludes = (companyName: string, inputValue: string): boolean => {
+    const getChoseong = (str: string): string => {
+      const choseongs: string[] = [];
+      for (let char of str) {
+        const code = char.charCodeAt(0);
+        if (code >= 0xac00 && code <= 0xd7a3) {
+          const choseongIndex = Math.floor((code - 0xac00) / 588);
+          choseongs.push(String.fromCharCode(0x1100 + choseongIndex));
+        }
+      }
+      return choseongs.join('');
+    };
+
+    const companyChoseong = getChoseong(companyName);
+    const inputChoseong = getChoseong(inputValue);
+
+    return companyChoseong.startsWith(inputChoseong);
+  };
+
+  const hangulIncludes = (companyName: string, inputValue: string): boolean => {
+    const hangulRegex = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    return hangulRegex.test(companyName) && companyName.includes(inputValue);
+  };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    setSearchData('type' as TSearch, value);
+    if (!value) {
+      setToolData([]);
+      return;
+    }
+    filterCompanies(value);
+  };
+
+  const filterCompanies = (inputValue: string) => {
+    const newCompanies = searchData.filter((company) => {
+      const convertedCompanyName = convertEnglishToLowerCase(company);
+      const convertedInput = convertEnglishToLowerCase(inputValue);
+
+      return (
+        choseongIncludes(convertedCompanyName, convertedInput) ||
+        hangulIncludes(convertedCompanyName, convertedInput)
+      );
+    });
+    setToolData(newCompanies);
+  };
+
+  // Debounce 적용
+  const debouncedFilter = debounce(filterCompanies, 300);
+
   useEffect(() => {
-    setSearchData('title' as TSearch, '');
+    const getData = async () => {
+      const result = await getSearchApi();
+      if (result?.status === 200) {
+        setData(result.data);
+      }
+    };
+    getData();
   }, []);
-  //   useEffect(() => {
-  //     getResultList(searchTerm);
-  //   }, [searchTerm]);
+
+  useEffect(() => {
+    debouncedFilter(searchTerm); // debouncedFilter 사용
+    return () => {
+      debouncedFilter.cancel(); // 컴포넌트 언마운트 시 debounce 취소
+    };
+  }, [searchTerm]);
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center gap-6">
       <div className="flex justify-between items-center min-w-[800px]">
@@ -51,7 +114,7 @@ const EditSearchCompo = (props: NumberReducer) => {
           {toolProp.map((e, index) => {
             return (
               <div
-                key={e}
+                key={index}
                 className={`border-border-1 border-[#CCCCCC] ${
                   index === 0 ? '' : 'border-t-0'
                 } py-4 px-3 text-start hover:bg-peach-light hover:text-white ${

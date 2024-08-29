@@ -1,60 +1,107 @@
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { inputReducer } from '@/store/editReducer';
 import Btn from '../common/Btn';
 import ReporterList from './ReporterList';
 import { regExpEmail } from '@/constants/regExp';
+import { getReporterApi, postReporterApi } from '@/apis/reporterapi';
+import { useReportStore } from '@/store/useReportStore';
 
 const ReporterSetting = () => {
   const [data, dispatch] = useReducer(inputReducer, '');
+  const [reporterUpdated, setReporterUpdated] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
+  const [name, setName] = useReducer(inputReducer, '');
+  const { setReporter } = useReportStore((state) => state.actions);
   const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: 'CHANGE', payload: e.target.value });
     setIsValidEmail(regExpEmail.test(data));
   };
-  const wayArray = ['기자', '언론', '인플루언서'];
+  const wayArray = [
+    { name: '신문', data: 'NEWSPAPER' },
+    { name: '티비', data: 'TV' },
+    { name: '인플루언서', data: 'INFLUENCER' },
+  ];
   // 이거 바꿀거
-  const [way, setWay] = useState('기자');
+  const [way, setWay] = useState({
+    name: '신문',
+    data: 'NEWSPAPER',
+  });
+  const postReporter = async () => {
+    const result = await postReporterApi(name, data, '', way.data);
+    if (result?.status === 200) {
+      alert('추가 성공');
+      dispatch({ type: 'RESET' });
+      setName({ type: 'RESET' });
+    } else {
+      alert('에러발생');
+    }
+  };
+  useEffect(() => {
+    const getData = async () => {
+      const result = await getReporterApi();
+      if (result?.status === 200) {
+        setReporter(result.data);
+      }
+    };
+    getData();
+    setReporterUpdated(false);
+  }, [reporterUpdated]);
   return (
     <div className="mt-20 w-4/5 max-w-[800px] mx-auto overflow-y-scroll">
       <div className="flex items-center justify-between mb-20">
         <div className="flex items-center gap-4">
-          <input
-            placeholder="이메일을 입력해주세요"
-            className="text-left h-10 w-[240px]"
-            onChange={onChangeData}
-            value={data}
-          />
+          <div className="w-[240px]">
+            <input
+              placeholder="이메일을 입력해주세요"
+              className="text-left h-10 w-full mb-5"
+              onChange={onChangeData}
+              value={data}
+            />
+            <input
+              placeholder="이름을 입력해주세요"
+              className="text-left h-10 w-full"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setName({ type: 'CHANGE', payload: e.target.value })
+              }
+              value={name}
+            />
+          </div>
           <Btn
             name={'등록하기'}
             onClick={() => {
-              if (isValidEmail) {
-                alert('등록하기');
+              if (isValidEmail && name.trim().length > 0) {
+                postReporter();
+                setTimeout(() => {
+                  setReporterUpdated(true);
+                }, 1000);
               } else {
-                alert('유효한 이메일 주소를 입력해주세요.');
+                alert('이메일 주소를 입력하거나 이름을 입력해주세요.');
               }
-              dispatch({ type: 'RESET' });
             }}
             className="bg-peach w-32 rounded-full py-1 text-white"
           />
         </div>
         <div className="flex items-center  gap-4">
-          {wayArray.map((e) => {
+          {wayArray.map((item) => {
             return (
               <>
                 <input
                   type="radio"
                   name="way"
-                  key={e}
-                  value={e}
-                  id={e}
+                  key={item.data}
+                  value={item.name}
+                  id={item.data}
                   className="hidden"
-                  checked={way === e}
+                  checked={way.name === item.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setWay(e.target.value);
+                    setWay({
+                      name: e.target.value,
+                      data: item.data,
+                    });
                   }}
                 />
-                <label htmlFor={e} className="check_btn">
-                  {e}
+                <label htmlFor={item.data} className="check_btn">
+                  {item.name}
                 </label>
               </>
             );
@@ -62,7 +109,7 @@ const ReporterSetting = () => {
         </div>
       </div>
       <div>
-        <ReporterList />
+        <ReporterList type={way.data} />
       </div>
     </div>
   );

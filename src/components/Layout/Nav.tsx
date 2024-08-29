@@ -7,7 +7,7 @@ import Down from '@assets/svg/Down.svg?react';
 
 const Nav = () => {
   const navigate = useNavigate();
-  let isLogin = true;
+  let isLogin = localStorage.getItem('accessToken') ? true : false;
 
   // 프로필 버튼 창 상태
   const [profileModal, setProfileModal] = useState<Boolean>(false);
@@ -140,6 +140,7 @@ const Nav = () => {
             <div
               onClick={() => {
                 setProfileModal((pre) => !pre);
+                localStorage.removeItem('accessToken');
                 navigate('/');
               }}
               className="flex items-center gap-2 w-[120px] h-10 rounded cursor-pointer text-base"

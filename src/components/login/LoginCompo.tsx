@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useReducer, useState } from 'react';
 import { inputReducer } from '@/store/editReducer';
 import { regExpEmail } from '@/constants/regExp';
+import { LoginApi } from '@/apis/loginapi';
 
 const LoginCompo = () => {
   const welcome: String = 'Welcome!NETKIM';
@@ -19,6 +20,16 @@ const LoginCompo = () => {
   const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
     pwMethod({ type: 'CHANGE', payload: e.target.value });
     setIsValidPw(pw.length >= 7);
+  };
+  const onLogin = async () => {
+    const result = await LoginApi(email, pw);
+    if (result?.status !== 200) {
+      alert('이메일 혹은 비밀번호가 일치하지 않습니다');
+    } else {
+      localStorage.setItem('accessToken', result.data);
+      navigate('/', { replace: true });
+      alert('로그인 성공!');
+    }
   };
   return (
     <div className="flex items-center gap-[65px]">
@@ -53,11 +64,7 @@ const LoginCompo = () => {
               name="로그인"
               onClick={() => {
                 if (isValidEmail && isValidPw) {
-                  alert('로그인 API');
-                  pwMethod({ type: 'RESET' });
-                  emailMethod({ type: 'RESET' });
-                  setIsValidEmail(false);
-                  setIsValidPw(false);
+                  onLogin();
                 } else {
                   alert('이메일 또는 비밀번호를 입력해주세요');
                 }

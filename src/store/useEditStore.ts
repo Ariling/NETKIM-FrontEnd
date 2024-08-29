@@ -6,14 +6,13 @@ type TSearchProp = {
 };
 
 type TEditProp = {
-  img?: string;
-  title: string;
-  casting: string;
-  feature: string;
-  day: string;
-  location: string;
-  openrun?: string;
-  interview?: string;
+  performanceId: number;
+  key: string;
+  actors: string;
+  synopsis: string;
+  seats: number;
+  interviewee: string;
+  interviewContent: string;
 };
 
 type TEditStore = {
@@ -38,14 +37,13 @@ export const useEditStore = create<TEditStore>()(
   devtools((set) => ({
     states: {
       editProp: {
-        img: '',
-        title: 'dd',
-        casting: 'ff',
-        feature: 'ss',
-        day: '',
-        location: '',
-        openrun: '',
-        interview: '',
+        performanceId: 0,
+        key: '',
+        actors: '',
+        synopsis: '',
+        seats: 0,
+        interviewee: '',
+        interviewContent: '',
       },
       // 이게 search 바 찾는 것
       toolProp: [],
@@ -91,14 +89,13 @@ export const useEditStore = create<TEditStore>()(
           states: {
             ...state.states,
             editProp: {
-              img: '',
-              title: '',
-              casting: '',
-              feature: '',
-              day: '',
-              location: '',
-              openturn: '',
-              interview: '',
+              performanceId: 0,
+              key: '',
+              actors: '',
+              synopsis: '',
+              seats: 0,
+              interviewee: '',
+              interviewContent: '',
             },
           },
         }));

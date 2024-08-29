@@ -49,7 +49,9 @@ const EditTextArea = ({ data, index, content, check, setCheck }: Prop) => {
         </div>
       </div>
       <textarea
-        className="w-full h-12 bg-basic rounded-lg resize-none p-2 disabled:text-gray-500"
+        className={`w-full bg-basic rounded-lg resize-none p-2 disabled:text-gray-500 ${
+          content === '줄거리*' || content === '인터뷰 내용' ? 'h-24' : 'h-12'
+        }`}
         disabled={edit}
         value={editProp[data as TEdit]}
         onChange={onChange}

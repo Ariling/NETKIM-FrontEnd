@@ -25,9 +25,11 @@ export const getSearchApi = async () => {
   }
 };
 
-export const getPrfInfoApi = async (prfId: string) => {
+export const getPrfInfoApi = async (prfnm: string) => {
   try {
-    const response = await apiClient.get(`/api-prf/${prfId}`);
+    const response = await apiClient.post(`/api-prf/find`, {
+      prfnm: prfnm,
+    });
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {

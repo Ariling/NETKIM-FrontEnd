@@ -50,7 +50,7 @@ const EditOverView = () => {
   return (
     <>
       <div className="inline-block w-full h-screen bg-basic">{getEditPage(step)}</div>
-      {open && (
+      {open.open && (
         <div className="absolute w-screen h-screen top-0 left-0 bg-[rgba(221,221,221,0.4)] z-10">
           <SendReporter type="edit" />
         </div>

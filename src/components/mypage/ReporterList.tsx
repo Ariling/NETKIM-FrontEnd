@@ -2,18 +2,20 @@ import { TReport, useReportStore } from '@/store/useReportStore';
 import ListTableDesign from '../common/ListTableDesign';
 import { useEffect, useState } from 'react';
 import { deleteReporterApi } from '@/apis/reporterapi';
+import { useNavigate } from 'react-router-dom';
 
 const ReporterList = ({ type }: { type: string }) => {
+  const router = useNavigate();
   const { reporterArray } = useReportStore((state) => state.states);
   const [list, setList] = useState<Array<TReport>>([]);
   useEffect(() => {
     setList(reporterArray.filter((e) => e.reporterType === type));
-  }, [type]);
+  }, [reporterArray, type]);
   const onDelete = async (reportId: number) => {
     const result = await deleteReporterApi(reportId);
     if (result?.status === 200) {
       alert('삭제되었습니다.');
-      setList(list.filter((e) => e.reporterId !== reportId));
+      router(0);
     } else {
       alert('삭제 실패');
     }

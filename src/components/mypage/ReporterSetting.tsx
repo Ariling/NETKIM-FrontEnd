@@ -5,10 +5,11 @@ import ReporterList from './ReporterList';
 import { regExpEmail } from '@/constants/regExp';
 import { getReporterApi, postReporterApi } from '@/apis/reporterapi';
 import { useReportStore } from '@/store/useReportStore';
+import { useNavigate } from 'react-router-dom';
 
 const ReporterSetting = () => {
+  const router = useNavigate();
   const [data, dispatch] = useReducer(inputReducer, '');
-  const [reporterUpdated, setReporterUpdated] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [name, setName] = useReducer(inputReducer, '');
   const { setReporter } = useReportStore((state) => state.actions);
@@ -44,8 +45,7 @@ const ReporterSetting = () => {
       }
     };
     getData();
-    setReporterUpdated(false);
-  }, [reporterUpdated]);
+  }, []);
   return (
     <div className="mt-20 w-4/5 max-w-[800px] mx-auto overflow-y-scroll">
       <div className="flex items-center justify-between mb-20">
@@ -71,9 +71,7 @@ const ReporterSetting = () => {
             onClick={() => {
               if (isValidEmail && name.trim().length > 0) {
                 postReporter();
-                setTimeout(() => {
-                  setReporterUpdated(true);
-                }, 1000);
+                router(0);
               } else {
                 alert('이메일 주소를 입력하거나 이름을 입력해주세요.');
               }

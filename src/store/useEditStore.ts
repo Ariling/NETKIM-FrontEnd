@@ -21,7 +21,10 @@ type TEditStore = {
     editProp: TEditProp;
     toolProp: Array<string>;
     // 모달 오픈용
-    open: boolean;
+    open: {
+      open: boolean;
+      id: number;
+    };
   };
   actions: {
     setData: (dataType: TEdit, data: string) => void;
@@ -29,7 +32,7 @@ type TEditStore = {
     setToolData: (data: Array<string>) => void;
     resetData: () => void;
     setSearchData: (dataType: TSearch, data: string) => void;
-    setOpen: () => void;
+    setOpen: (id: number) => void;
   };
 };
 
@@ -51,7 +54,10 @@ export const useEditStore = create<TEditStore>()(
         title: '',
         type: '보도용',
       },
-      open: false,
+      open: {
+        open: false,
+        id: 0,
+      },
     },
     actions: {
       setData: (dataType: TEdit, data: string) => {
@@ -108,11 +114,14 @@ export const useEditStore = create<TEditStore>()(
           },
         }));
       },
-      setOpen: () => {
+      setOpen: (id: number) => {
         set((state) => ({
           states: {
             ...state.states,
-            open: !state.states.open,
+            open: {
+              open: !state.states.open.open,
+              id: id,
+            },
           },
         }));
       },

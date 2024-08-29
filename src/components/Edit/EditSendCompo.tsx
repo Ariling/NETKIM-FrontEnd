@@ -70,7 +70,7 @@ ${fileLink}
           name="기자발송"
           className=" w-60 h-[50px] rounded-lg font-bold text-lg"
           onClick={() => {
-            setOpen();
+            setOpen(1);
           }}
         ></Button>
       </div>

@@ -1,33 +1,38 @@
 import { useEditStore } from '@/store/useEditStore';
 import ListTableDesign from '../common/ListTableDesign';
 import Download from '@assets/svg/Download.svg?react';
-
-type TList = {
-  id: number;
-  name: string;
-  date: string;
-  fileUrl: string;
-};
+import { useEffect, useState } from 'react';
+import { getDownloadPress, getPressReleaseApi } from '@/apis/pressapi';
 
 const PressReleaseList = () => {
+  const [dataList, setDataList] = useState<Array<any>>([]);
   const { setOpen } = useEditStore((state) => state.actions);
-  const lists: Array<TList> = [
-    {
-      id: 1,
-      name: '레베카',
-      date: '2024-08-27',
-      fileUrl: '',
-    },
-  ];
+  useEffect(() => {
+    const getData = async () => {
+      const result = await getPressReleaseApi();
+      if (result?.status === 200) {
+        setDataList(result.data);
+      }
+    };
+    getData();
+  }, []);
   const handleFileDownload = (url: string) => {
     window.open(url, '_blank');
   };
+  const fileDownload = async (pressReleaseId: number) => {
+    const result = await getDownloadPress(pressReleaseId);
+    if (result?.status === 200) {
+      console.log(result);
+    } else {
+      alert('저장 실패');
+    }
+  };
   return (
     <ListTableDesign type="press">
-      {lists.length > 0 ? (
-        lists.map((list, index) => (
+      {dataList.length > 0 ? (
+        dataList.map((list, index) => (
           <tr
-            key={list.id}
+            key={list.pressReleaseId}
             className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
             <th
@@ -47,13 +52,13 @@ const PressReleaseList = () => {
             <td className="px-4 py-4 text-center flex justify-center gap-2">
               <div
                 className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
-                onClick={() => alert('저장버튼!')}
+                onClick={() => fileDownload(list.pressReleaseId)}
               >
                 저장
               </div>
               <div
                 className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
-                onClick={() => setOpen()}
+                onClick={() => setOpen(list.pressReleaseId)}
               >
                 기자발송
               </div>

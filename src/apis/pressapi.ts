@@ -1,6 +1,7 @@
 import apiClient from '@/utils/apiClient';
 import axios from 'axios';
 
+// 보도자료 받는 메소드
 export const getPressReleaseApi = async () => {
   try {
     const response = await apiClient.get('/api-news');
@@ -12,7 +13,33 @@ export const getPressReleaseApi = async () => {
     }
   }
 };
-
+// 보도자료 저장 메소드
+export const getDownloadPress = async (pressReleaseId: number) => {
+  try {
+    const response = await apiClient.get(`/api-news/file/${pressReleaseId}`);
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const result = error.response;
+      return result;
+    }
+  }
+};
+// 보도자료 기자 작성 메소드
+export const sendPressReleaseApi = async (pressReleaseId: number) => {
+  try {
+    const response = await apiClient.post(`/api-news/file`, {
+      pressReleaseId: pressReleaseId,
+    });
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const result = error.response;
+      return result;
+    }
+  }
+};
+// 기자 발송 메소드
 export const getSearchApi = async () => {
   try {
     const response = await apiClient.get('/api-prf');

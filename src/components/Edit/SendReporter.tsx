@@ -1,3 +1,4 @@
+import { sendPressReleaseApi } from '@/apis/pressapi';
 import { useEditStore } from '@/store/useEditStore';
 import Check from '@assets/svg/Checkbox.svg?react';
 import UnCheck from '@assets/svg/UnCheckbox.svg?react';
@@ -10,6 +11,7 @@ interface TList {
 
 const SendReporter = ({ type }: { type: string }) => {
   const { setOpen } = useEditStore((state) => state.actions);
+  const { open } = useEditStore((state) => state.states);
   const [reporterList, setReporterList] = useState<TList[]>([]);
   const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
   const navigate = useNavigate();
@@ -28,6 +30,18 @@ const SendReporter = ({ type }: { type: string }) => {
     setSelectedEmails((prev) =>
       prev.includes(email) ? prev.filter((e) => e !== email) : [...prev, email]
     );
+  };
+  const sendApi = async (pressReleaseId: number) => {
+    const result = await sendPressReleaseApi(pressReleaseId);
+    if (result?.status === 200) {
+      alert('기자 메일로 전송되었습니다.');
+      if (type === 'edit') {
+        navigate('/');
+      }
+    } else {
+      alert('에러 발생');
+    }
+    setOpen(0);
   };
 
   return (
@@ -63,11 +77,7 @@ const SendReporter = ({ type }: { type: string }) => {
               if (selectedEmails.length === 0) {
                 alert('한 명 이상 체크해주세요');
               } else {
-                alert('발송 성공');
-                if (type === 'edit') {
-                  navigate('/');
-                }
-                setOpen();
+                sendApi(open.id);
               }
             }}
           >
@@ -76,7 +86,7 @@ const SendReporter = ({ type }: { type: string }) => {
           <button
             className="w-20 bg-neutral-200 p-2 rounded-md"
             onClick={() => {
-              setOpen();
+              setOpen(0);
             }}
           >
             닫기

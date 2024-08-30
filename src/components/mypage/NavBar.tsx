@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 interface NavBarProps {
   profileSetting: string;
-  pressrelease: string;
+  pressrelease?: string;
   reporter: string;
   onUpdateCurNavBar: (buttonText: string) => void;
 }
@@ -49,15 +49,17 @@ const NavBar: React.FC<NavBarProps> = ({
             {reporter}
           </button>
         </div>
-        <div
-          className={`border-b ${
-            activeButton === pressrelease ? 'text-peach-text' : ''
-          } hover:text-peach-semiThick active:text-peach-thick flex items-center`}
-        >
-          <button className="w-full text-center p-4" onClick={() => handleClick(pressrelease)}>
-            {pressrelease}
-          </button>
-        </div>
+        {pressrelease && (
+          <div
+            className={`border-b ${
+              activeButton === pressrelease ? 'text-peach-text' : ''
+            } hover:text-peach-semiThick active:text-peach-thick flex items-center`}
+          >
+            <button className="w-full text-center p-4" onClick={() => handleClick(pressrelease)}>
+              {pressrelease}
+            </button>
+          </div>
+        )}
       </div>
       <style>{`
         .border-b {

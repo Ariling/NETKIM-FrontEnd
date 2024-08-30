@@ -6,8 +6,9 @@ import { regExpEmail } from '@/constants/regExp';
 import { getReporterApi, postReporterApi } from '@/apis/reporterapi';
 import { useReportStore } from '@/store/useReportStore';
 import { useNavigate } from 'react-router-dom';
+import { getAdminReporterApi, postAdminReporterApi } from '@/apis/adminapi';
 
-const ReporterSetting = () => {
+const ReporterSetting = ({ type }: { type: string }) => {
   const router = useNavigate();
   const [data, dispatch] = useReducer(inputReducer, '');
   const [isValidEmail, setIsValidEmail] = useState(false);
@@ -28,7 +29,10 @@ const ReporterSetting = () => {
     data: 'NEWSPAPER',
   });
   const postReporter = async () => {
-    const result = await postReporterApi(name, data, '', way.data);
+    const result =
+      type === 'mypage'
+        ? await postReporterApi(name, data, '', way.data)
+        : await postAdminReporterApi(name, data, '', way.data);
     if (result?.status === 200) {
       alert('추가 성공');
       dispatch({ type: 'RESET' });
@@ -39,9 +43,12 @@ const ReporterSetting = () => {
   };
   useEffect(() => {
     const getData = async () => {
-      const result = await getReporterApi();
+      const result = type === 'mypage' ? await getReporterApi() : await getAdminReporterApi();
       if (result?.status === 200) {
         setReporter(result.data);
+      } else if (result?.status === 400) {
+        alert('접근할 수 없습니다.');
+        router('/', { replace: true });
       }
     };
     getData();
@@ -107,7 +114,7 @@ const ReporterSetting = () => {
         </div>
       </div>
       <div>
-        <ReporterList type={way.data} />
+        <ReporterList type={way.data} page={type} />
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
+import { postAdminApi } from '@/apis/adminapi';
 import Download from '@assets/svg/Download.svg?react';
+import { useNavigate } from 'react-router-dom';
 
 type TList = {
   id: number;
@@ -7,6 +9,7 @@ type TList = {
 };
 
 const ListTable = () => {
+  const router = useNavigate();
   const lists: Array<TList> = [
     {
       id: 1,
@@ -21,6 +24,15 @@ const ListTable = () => {
   ];
   const handleFileDownload = (url: string) => {
     window.open(url, '_blank');
+  };
+  const onRoleUp = async (id: number, name: string) => {
+    const result = await postAdminApi(id, name);
+    if (result?.status === 200) {
+      alert('권한이 부여되었습니다');
+      router(0);
+    } else {
+      alert('에러가 발생했습니다');
+    }
   };
   return (
     <>
@@ -63,15 +75,9 @@ const ListTable = () => {
                   <td className="px-4 py-4 text-center flex justify-center gap-2">
                     <div
                       className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
-                      onClick={() => alert('승낙버튼!')}
+                      onClick={() => onRoleUp(list.id, list.companyName)}
                     >
                       수락
-                    </div>
-                    <div
-                      className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
-                      onClick={() => alert('취소버튼!')}
-                    >
-                      취소
                     </div>
                   </td>
                 </tr>

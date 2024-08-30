@@ -9,6 +9,7 @@ import { getPrfInfoApi, postPressReleaseApi, previewApi } from '@/apis/pressapi'
 
 interface IPreview {
   poster: string;
+  title: string;
   headLine: string;
   content: string;
 }
@@ -32,6 +33,7 @@ const EditPageCompo = (
   const [previewData, setPreview] = useState<IPreview>({
     poster: '',
     headLine: '',
+    title: '',
     content: '',
   });
   const { searchProp, editProp } = useEditStore((state) => state.states);
@@ -68,6 +70,7 @@ const EditPageCompo = (
         poster: result.data.performance.poster,
         headLine: result.data.headLine,
         content: result.data.content,
+        title: result.data.performance.prfnm,
       });
     }
   };
@@ -131,10 +134,24 @@ const EditPageCompo = (
       </Card>
       <Card name="미리보기" className="relative w-[672px] max-h-[907px]">
         {show ? (
-          <div>
-            <div>{previewData.headLine}</div>
-            <img src={previewData.poster} />
-            <div>{previewData.content}</div>
+          <div className="w-full h-full">
+            <div className="px-4 py-6 flex flex-col overflow-y-scroll">
+              <h1 className="text-2xl font-bold mb-6">{previewData.headLine}</h1>
+              {previewData.poster ? (
+                <div className="mb-4">
+                  <img
+                    src={previewData.poster}
+                    alt="포스터"
+                    className="w-[70%] h-auto max-h-[400px] mx-auto"
+                  />
+                  <div>{previewData.title}포스터</div>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              <p className="text-gray-700 text-base leading-relaxed">{previewData.content}</p>
+            </div>
           </div>
         ) : (
           <div className="flex justify-center items-center flex-col h-full gap-6">

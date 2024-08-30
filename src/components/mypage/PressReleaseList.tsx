@@ -1,12 +1,12 @@
-import { useEditStore } from '@/store/useEditStore';
 import ListTableDesign from '../common/ListTableDesign';
 import Download from '@assets/svg/Download.svg?react';
 import { useEffect, useState } from 'react';
-import { getDownloadPress, getPressReleaseApi } from '@/apis/pressapi';
+import { getPressReleaseApi, sendPressReleaseApi } from '@/apis/pressapi';
+import { useNavigate } from 'react-router-dom';
 
 const PressReleaseList = () => {
   const [dataList, setDataList] = useState<Array<any>>([]);
-  const { setOpen } = useEditStore((state) => state.actions);
+  const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
       const result = await getPressReleaseApi();
@@ -18,6 +18,19 @@ const PressReleaseList = () => {
   }, []);
   const handleFileDownload = (url: string) => {
     window.open(url, '_blank');
+  };
+  const sendApi = async (pressReleaseId: number, type: string) => {
+    const result = await sendPressReleaseApi(pressReleaseId);
+    if (result?.status === 200) {
+      alert('기자 메일로 전송되었습니다.');
+      if (type === 'edit') {
+        navigate('/');
+      } else {
+        navigate(0);
+      }
+    } else {
+      alert('에러 발생');
+    }
   };
   // const fileDownload = async (pressReleaseId: number) => {
   //   const result = await getDownloadPress(pressReleaseId);
@@ -52,7 +65,7 @@ const PressReleaseList = () => {
             <td className="px-4 py-4 text-center flex justify-center gap-2">
               <div
                 className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
-                onClick={() => setOpen(list.pressReleaseId)}
+                onClick={() => sendApi(list.pressReleaseId, 'mypage')}
               >
                 기자발송
               </div>

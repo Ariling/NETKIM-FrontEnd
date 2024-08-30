@@ -2,6 +2,7 @@ import paperplane from '@assets/img/PaperPlane.png';
 import { Button } from '../common/Button';
 import { useNavigate } from 'react-router-dom';
 import { useEditStore } from '@/store/useEditStore';
+import { sendPressReleaseApi } from '@/apis/pressapi';
 
 const EditSendCompo = ({ id }: { id: number }) => {
   const navigate = useNavigate();
@@ -19,16 +20,17 @@ ${fileLink}
 
     window.open(mailtoLink, '_blank');
   };
-  const { setOpen } = useEditStore((state) => state.actions);
-  // const handleEmailClick = () => {
-  //   const recipients = encodeURIComponent('ariettys2@naver.com,findurwind@gmail.com');
-  //   const subject = encodeURIComponent('보도자료 작성');
-  //   const fileId = 'report.pdf'; // 서버에 저장된 파일의 식별자
-
-  //   const url = `https://your-server.com/sendWithAttachment?recipients=${recipients}&subject=${subject}&file=${fileId}`;
-
-  //   window.open(url, '_blank');
-  // };
+  const sendApi = async (pressReleaseId: number, type: string) => {
+    const result = await sendPressReleaseApi(pressReleaseId);
+    if (result?.status === 200) {
+      alert('기자 메일로 전송되었습니다.');
+      if (type === 'edit') {
+        navigate('/');
+      }
+    } else {
+      alert('에러 발생');
+    }
+  };
   const downloadFile = () => {
     alert('일단은 되는지 나중에 확인...');
     //    fetch('서버 URL', { method: 'GET' })
@@ -70,7 +72,7 @@ ${fileLink}
           name="기자발송"
           className=" w-60 h-[50px] rounded-lg font-bold text-lg"
           onClick={() => {
-            setOpen(id);
+            sendApi(id, 'edit');
           }}
         ></Button>
       </div>

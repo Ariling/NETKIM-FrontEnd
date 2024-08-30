@@ -1,3 +1,4 @@
+import apiClient from '@/utils/apiClient';
 import { SERVER_URL } from '@/utils/jsonURL';
 import axios from 'axios';
 
@@ -10,7 +11,11 @@ export const MypageRoleChangeApi = async (certificate: File) => {
     },
   };
   try {
-    const response = await axios.post(`${SERVER_URL}/api-member/role-manager`, formData, config);
+    const response = await apiClient.post(
+      `${SERVER_URL}/api-member/role-manager`,
+      formData,
+      config
+    );
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -22,7 +27,7 @@ export const MypageRoleChangeApi = async (certificate: File) => {
 
 export const VerifyEmailApi = async () => {
   try {
-    const response = await axios.post(`${SERVER_URL}/api-member/verify`);
+    const response = await apiClient.post(`${SERVER_URL}/api-member/verify`);
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {

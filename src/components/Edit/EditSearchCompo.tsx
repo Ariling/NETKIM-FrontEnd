@@ -74,6 +74,7 @@ const EditSearchCompo = (props: NumberReducer) => {
       }
     };
     getData();
+    setSearchData('title' as TSearch, '');
   }, []);
 
   useEffect(() => {

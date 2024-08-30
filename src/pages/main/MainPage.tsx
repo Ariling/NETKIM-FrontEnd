@@ -8,10 +8,13 @@ const MainPage = () => {
     <div className=" inline-block w-full h-screen">
       <div className="absolute top-0 left-0 w-full h-[630px] flex items-center justify-center">
         <img src={MainFrame} alt="메인이미지" className="absolute top-0 left-0 w-full h-full" />
-        <div className="z-10 font-semibold text-3xl text-[48px] text-text-color flex flex-col gap-4">
-          <span className="h-10">보도자료 작성부터 효과적인 메일 배포까지</span>
-          <span className="h-10">모두 한 번에 비인기 장르,</span>
-          <span className="h-10">중소형 기획사의 홍보 파트너</span>
+        <div className="z-10 font-semibold text-3xl text-[48px] text-text-color flex flex-col gap-3">
+          <span className="h-10">보도자료 작성부터</span>
+          <span className="h-10">효과적인 메일 배포까지</span>
+          <span className="h-10">모두 한 번에</span>
+          <br />
+          <span className="h-10">공연 홍보 파트너</span>
+          <span className="h-10">공연이요</span>
         </div>
       </div>
       <div className="absolute top-1/4 left-[40%]">

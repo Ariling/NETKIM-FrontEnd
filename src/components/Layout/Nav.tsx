@@ -4,6 +4,8 @@ import Edit from '@assets/svg/Edit.svg?react';
 import Logout from '@assets/svg/Logout.svg?react';
 import Profile from '@assets/svg/Userprofile.svg?react';
 import Down from '@assets/svg/Down.svg?react';
+import Logo from '@assets/img/Logo.png';
+import ProfileImg from '@assets/img/Preview.webp';
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -84,10 +86,8 @@ const Nav = () => {
       <div className=" box-border relative w-full px-4 py-10 flex justify-between items-center">
         <div className="w-3/5 flex justify-start items-center gap-4">
           <span className="cursor-pointer" onClick={() => navigate('/')}>
-            로고이미지
+            <img src={Logo} alt="로고이미지" width={140} height={40} />
           </span>
-          로고 나오는 곳
-          <div onClick={() => navigate('/')} />
         </div>
 
         <div className="w-1/5 flex justify-end items-center">
@@ -100,7 +100,9 @@ const Nav = () => {
                 backgroundColor: profileModal ? 'var(--grey-300, #eaecee)' : '',
               }}
             >
-              <div className="profile-img">프로필 나오는 곳</div>
+              <div className="profile-img">
+                <img src={ProfileImg} alt="프로필 이미지" width={36} height={36} />
+              </div>
               <Down
                 style={{
                   transform: profileModal ? 'rotate(0deg)' : 'rotate(180deg)',

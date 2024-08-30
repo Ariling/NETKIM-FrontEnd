@@ -46,9 +46,6 @@ const ReporterSetting = ({ type }: { type: string }) => {
       const result = type === 'mypage' ? await getReporterApi() : await getAdminReporterApi();
       if (result?.status === 200) {
         setReporter(result.data);
-      } else if (result?.status === 400) {
-        alert('접근할 수 없습니다.');
-        router('/', { replace: true });
       }
     };
     getData();

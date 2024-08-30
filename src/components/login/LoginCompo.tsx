@@ -63,7 +63,7 @@ const LoginCompo = () => {
             <Btn
               name="로그인"
               onClick={() => {
-                if (isValidEmail && isValidPw) {
+                if (isValidEmail && pw.length >= 4) {
                   onLogin();
                 } else {
                   alert('이메일 또는 비밀번호를 입력해주세요');

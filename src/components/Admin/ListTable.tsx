@@ -1,27 +1,24 @@
-import { postAdminApi } from '@/apis/adminapi';
+import { getAdminApi, postAdminApi } from '@/apis/adminapi';
 import Download from '@assets/svg/Download.svg?react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-type TList = {
-  id: number;
-  companyName: string;
-  fileUrl: string;
-};
 
 const ListTable = () => {
   const router = useNavigate();
-  const lists: Array<TList> = [
-    {
-      id: 1,
-      companyName: '안녕컴퍼니',
-      fileUrl: '',
-    },
-    {
-      id: 11,
-      companyName: '산들컴퍼니',
-      fileUrl: '',
-    },
-  ];
+  const [dataList, setDataList] = useState<Array<any>>([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const getRole = async () => {
+      const result = await getAdminApi();
+      if (result?.status === 200) {
+        setDataList(result.data);
+      } else if (result?.status === 400) {
+        alert('어드민 외 접근할 수 없습니다.');
+        navigate('/');
+      }
+    };
+    getRole();
+  }, []);
   const handleFileDownload = (url: string) => {
     window.open(url, '_blank');
   };
@@ -53,10 +50,10 @@ const ListTable = () => {
             </tr>
           </thead>
           <tbody>
-            {lists.length > 0 ? (
-              lists.map((list, index) => (
+            {dataList.length > 0 ? (
+              dataList.map((list, index) => (
                 <tr
-                  key={list.id}
+                  key={list.memberIdx}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
                   <th
@@ -65,17 +62,17 @@ const ListTable = () => {
                   >
                     {index + 1}
                   </th>
-                  <td className="px-4 py-4 text-center">{list.companyName}</td>
+                  <td className="px-4 py-4 text-center">{list.company}</td>
                   <td className="px-3 py-4 text-center">
                     <Download
                       className="inline-block cursor-pointer"
-                      onClick={() => handleFileDownload(list.fileUrl)}
+                      onClick={() => handleFileDownload(list.filename)}
                     />
                   </td>
                   <td className="px-4 py-4 text-center flex justify-center gap-2">
                     <div
                       className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
-                      onClick={() => onRoleUp(list.id, list.companyName)}
+                      onClick={() => onRoleUp(list.memberIdx, list.company)}
                     >
                       수락
                     </div>

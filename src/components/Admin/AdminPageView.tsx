@@ -36,7 +36,6 @@ const AdminPageView = () => {
       </div>
     </>
   );
-  return <div>AdminPageView</div>;
 };
 
 export default AdminPageView;

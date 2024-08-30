@@ -30,7 +30,7 @@ const CustomRouter = createBrowserRouter([
         element: <EditOverView />,
       },
       {
-        path: 'admin',
+        path: 'gongyeaonioAdminPageLimitedForOther',
         element: <AdminPage />,
       },
       {

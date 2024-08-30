@@ -19,14 +19,14 @@ const PressReleaseList = () => {
   const handleFileDownload = (url: string) => {
     window.open(url, '_blank');
   };
-  const fileDownload = async (pressReleaseId: number) => {
-    const result = await getDownloadPress(pressReleaseId);
-    if (result?.status === 200) {
-      console.log(result);
-    } else {
-      alert('저장 실패');
-    }
-  };
+  // const fileDownload = async (pressReleaseId: number) => {
+  //   const result = await getDownloadPress(pressReleaseId);
+  //   if (result?.status === 200) {
+  //     console.log(result);
+  //   } else {
+  //     alert('저장 실패');
+  //   }
+  // };
   return (
     <ListTableDesign type="press">
       {dataList.length > 0 ? (
@@ -41,21 +41,15 @@ const PressReleaseList = () => {
             >
               {index + 1}
             </th>
-            <td className="px-4 py-4 text-center">{list.name}</td>
-            <td className="px-4 py-4 text-center">{list.date}</td>
+            <td className="px-4 py-4 text-center">{list.performance.prfnm}</td>
+            <td className="px-4 py-4 text-center">{list.performance.prfstate}</td>
             <td className="px-3 py-4 text-center">
               <Download
                 className="inline-block cursor-pointer"
-                onClick={() => handleFileDownload(list.fileUrl)}
+                onClick={() => handleFileDownload(list.filename)}
               />
             </td>
             <td className="px-4 py-4 text-center flex justify-center gap-2">
-              <div
-                className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
-                onClick={() => fileDownload(list.pressReleaseId)}
-              >
-                저장
-              </div>
               <div
                 className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
                 onClick={() => setOpen(list.pressReleaseId)}

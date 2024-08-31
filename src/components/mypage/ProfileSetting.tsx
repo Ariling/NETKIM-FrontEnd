@@ -33,7 +33,7 @@ const ProfileSetting = () => {
     } else if (!fileText) {
       alert('파일을 첨부해주세요');
     } else {
-      const result = await MypageRoleChangeApi(fileText);
+      const result = await MypageRoleChangeApi(fileText, data);
       if (result?.status === 200) {
         alert('등록이 되었습니다. 관리자한테 승낙을 받기 전까지 기다려주십시오');
       } else {

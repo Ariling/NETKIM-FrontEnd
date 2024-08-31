@@ -2,9 +2,10 @@ import apiClient from '@/utils/apiClient';
 import { SERVER_URL } from '@/utils/jsonURL';
 import axios from 'axios';
 
-export const MypageRoleChangeApi = async (certificate: File) => {
+export const MypageRoleChangeApi = async (certificate: File, company: string) => {
   const formData = new FormData();
   formData.append('certificate', certificate);
+  formData.append('company', company);
   const config = {
     headers: {
       'Content-Type': 'multipart/form-data',

@@ -111,7 +111,7 @@ export const previewApi = async (
       actors: actors,
       seats: seats,
       interviewee: interviewee,
-      interviewConten: interviewContent,
+      interviewContent: interviewContent,
     });
     return response;
   } catch (error) {

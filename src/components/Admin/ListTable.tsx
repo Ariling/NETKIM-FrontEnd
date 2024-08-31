@@ -66,7 +66,7 @@ const ListTable = () => {
                   <td className="px-3 py-4 text-center">
                     <Download
                       className="inline-block cursor-pointer"
-                      onClick={() => handleFileDownload(list.filename)}
+                      onClick={() => handleFileDownload(list.certificateImg)}
                     />
                   </td>
                   <td className="px-4 py-4 text-center flex justify-center gap-2">

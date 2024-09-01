@@ -53,11 +53,11 @@ const EditSendCompo = ({ id }: { id: number }) => {
   // };
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center gap-6">
-      <div className="relative w-[300px] h-[300px] rounded-full bg-white">
+      <div className="relative w-[300px] h-[300px] rounded-full bg-send-gradient overflow-hidden">
         <img
           src={paperplane}
           alt="종이비행기"
-          className="absolute top-1/2 left-1/3 -translate-x-1/3 -translate-y-1/2"
+          className="absolute top-1/2 left-1/3 -translate-x-1/3 -translate-y-1/2 flying-paperplane"
         />
       </div>
       <div className="mt-11">보도자료가 작성되었습니다</div>

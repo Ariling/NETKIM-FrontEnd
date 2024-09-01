@@ -13,11 +13,15 @@ export default {
       pretendard: ['Pretendard'],
     },
     extend: {
+      backgroundImage: {
+        'send-gradient': 'linear-gradient(to bottom, #FFC9C0 17%, #FFFFFF 83%)',
+      },
       boxShadow: {
         toggle: '0px 2px 12px 0px rgba(0,0,0,0.07)',
         editShadow: '0px 12px 24px 0px rgba(13,16,45,0.1)',
         editShadow2: '0px 25px 50px -12px rgba(13,16,45,0.1)',
-        button: '0px 2px 1px 0px rgba(0,0,0,0.25)',
+        button: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
+        button_hover: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
       },
       colors: {
         // 토글 셀렉

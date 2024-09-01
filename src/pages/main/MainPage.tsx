@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const MainPage = () => {
   const router = useNavigate();
   return (
-    <div className=" inline-block w-full h-screen">
+    <div className=" inline-block w-full min-h-[calc(100vh-56px)]">
       <div className="absolute top-0 left-0 w-full h-[630px] flex items-center justify-center">
         <img src={MainFrame} alt="메인이미지" className="absolute top-0 left-0 w-full h-full" />
         <div className="z-10 font-semibold text-3xl text-[48px] text-text-color flex flex-col gap-3">
@@ -24,9 +24,9 @@ const MainPage = () => {
           className="w-full h-full object-contain opacity-[64%]"
         />
       </div>
-      <div className="relative w-full h-full">
+      <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2">
         {/* 이건 중앙에 있게 할거지만 지금은 이 상태로 냅두기 */}
-        <div className="sticky top-1/2 left-1/2 w-full h-24">
+        <div className="w-full h-24">
           <Button
             name="작성하기"
             className=" w-80 h-20 rounded-[30px] font-black text-4xl z-50"

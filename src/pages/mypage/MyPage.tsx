@@ -6,13 +6,11 @@ const MyPage = () => {
   const { open } = useEditStore((state) => state.states);
   return (
     <>
-      <div className=" inline-block w-full min-h-screen py-10">
-        <div className="w-full h-24 bg-peach-header font-black text-4xl flex items-end justify-center rounded-ss-[9px] rounded-se-[9px] px-6">
+      <div className="inline-block w-full min-h-[calc(100vh-56px)]">
+        <div className="sticky top-0 z-10 w-full h-24 bg-peach-header font-black text-4xl flex items-end justify-center rounded-ss-[9px] rounded-se-[9px] px-6">
           마이페이지
         </div>
-        <div>
-          <MyPageView />
-        </div>
+        <MyPageView />
       </div>
       {open.open && (
         <div className="absolute w-screen h-screen top-0 left-0 bg-[rgba(221,221,221,0.4)] z-10">

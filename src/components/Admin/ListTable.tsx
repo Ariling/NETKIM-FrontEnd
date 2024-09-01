@@ -43,10 +43,13 @@ const ListTable = () => {
               <th scope="col" className="px-4 py-3 w-1/3">
                 회사명
               </th>
+              <th scope="col" className="px-4 py-3 w-1/6">
+                이름
+              </th>
               <th scope="col" className="px-3 py-3 w-1/6">
                 파일
               </th>
-              <th scope="col" className="px-4 py-3 w-1/3"></th>
+              <th scope="col" className="px-4 py-3 w-1/6"></th>
             </tr>
           </thead>
           <tbody>
@@ -63,6 +66,7 @@ const ListTable = () => {
                     {index + 1}
                   </th>
                   <td className="px-4 py-4 text-center">{list.company}</td>
+                  <td className="px-4 py-4 text-center">{list.memberName}</td>
                   <td className="px-3 py-4 text-center">
                     <Download
                       className="inline-block cursor-pointer"

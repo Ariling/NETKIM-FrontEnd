@@ -3,9 +3,11 @@ import Download from '@assets/svg/Download.svg?react';
 import { useEffect, useState } from 'react';
 import { getPressReleaseApi, sendPressReleaseApi } from '@/apis/pressapi';
 import { useNavigate } from 'react-router-dom';
+import { useEditStore } from '@/store/useEditStore';
 
 const PressReleaseList = () => {
   const [dataList, setDataList] = useState<Array<any>>([]);
+  const { setOpen } = useEditStore((state) => state.actions);
   const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
@@ -20,6 +22,7 @@ const PressReleaseList = () => {
     window.open(url, '_blank');
   };
   const sendApi = async (pressReleaseId: number, type: string) => {
+    setOpen(pressReleaseId);
     const result = await sendPressReleaseApi(pressReleaseId);
     if (result?.status === 200) {
       alert('기자 메일로 전송되었습니다.');
@@ -28,6 +31,7 @@ const PressReleaseList = () => {
       } else {
         navigate(0);
       }
+      setOpen(0);
     } else {
       alert('에러 발생');
     }

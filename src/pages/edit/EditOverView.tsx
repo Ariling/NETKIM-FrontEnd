@@ -1,7 +1,7 @@
+import Loading from '@/components/common/Loading';
 import EditPageCompo from '@/components/Edit/EditPageCompo';
 import EditSearchCompo from '@/components/Edit/EditSearchCompo';
 import EditSendCompo from '@/components/Edit/EditSendCompo';
-import SendReporter from '@/components/Edit/SendReporter';
 import { reducer } from '@/store/editReducer';
 import { useEditStore } from '@/store/useEditStore';
 import { useCallback, useEffect, useReducer } from 'react';
@@ -53,7 +53,7 @@ const EditOverView = () => {
       <div className="inline-block w-full h-screen bg-basic">{getEditPage(step)}</div>
       {open.open && (
         <div className="absolute w-screen h-screen top-0 left-0 bg-[rgba(221,221,221,0.4)] z-10">
-          <SendReporter type="edit" />
+          <Loading />
         </div>
       )}
     </>

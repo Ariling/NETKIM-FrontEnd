@@ -1,4 +1,4 @@
-import SendReporter from '@/components/Edit/SendReporter';
+import Loading from '@/components/common/Loading';
 import MyPageView from '@/components/mypage/MypageView';
 import { useEditStore } from '@/store/useEditStore';
 
@@ -16,7 +16,7 @@ const MyPage = () => {
       </div>
       {open.open && (
         <div className="absolute w-screen h-screen top-0 left-0 bg-[rgba(221,221,221,0.4)] z-10">
-          <SendReporter type="mypage" />
+          <Loading />
         </div>
       )}
     </>

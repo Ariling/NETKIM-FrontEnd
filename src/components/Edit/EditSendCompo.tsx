@@ -6,48 +6,51 @@ import { sendPressReleaseApi } from '@/apis/pressapi';
 
 const EditSendCompo = ({ id }: { id: number }) => {
   const navigate = useNavigate();
-  const handleEmailClick = () => {
-    const recipients = 'ariettys2@naver.com, findurwind@gmail.com';
-    const subject = encodeURIComponent('보도자료 작성');
-    const fileLink = 'https://example.com/path/to/your/file.pdf'; // 실제 파일 링크로 교체하세요
-    const body = encodeURIComponent(`
-안녕하세요,
-보도자료와 관련된 파일을 다음 링크에서 확인해주세요:
-${fileLink}
-감사합니다.`);
+  const { setOpen } = useEditStore((state) => state.actions);
+  //   const handleEmailClick = () => {
+  //     const recipients = 'ariettys2@naver.com, findurwind@gmail.com';
+  //     const subject = encodeURIComponent('보도자료 작성');
+  //     const fileLink = 'https://example.com/path/to/your/file.pdf'; // 실제 파일 링크로 교체하세요
+  //     const body = encodeURIComponent(`
+  // 안녕하세요,
+  // 보도자료와 관련된 파일을 다음 링크에서 확인해주세요:
+  // ${fileLink}
+  // 감사합니다.`);
 
-    const mailtoLink = `mailto:${recipients}?subject=${subject}&body=${body}`;
+  //     const mailtoLink = `mailto:${recipients}?subject=${subject}&body=${body}`;
 
-    window.open(mailtoLink, '_blank');
-  };
+  //     window.open(mailtoLink, '_blank');
+  //   };
   const sendApi = async (pressReleaseId: number, type: string) => {
+    setOpen(pressReleaseId);
     const result = await sendPressReleaseApi(pressReleaseId);
     if (result?.status === 200) {
       alert('기자 메일로 전송되었습니다.');
       if (type === 'edit') {
         navigate('/');
       }
+      setOpen(0);
     } else {
       alert('에러 발생');
     }
   };
-  const downloadFile = () => {
-    alert('일단은 되는지 나중에 확인...');
-    //    fetch('서버 URL', { method: 'GET' })
-    //      .then((res) => res.blob())
-    //      .then((response) => {
-    //        const downloadUrl = window.URL.createObjectURL(new Blob([response]));
-    //        const link = document.createElement('a');
-    //        link.href = downloadUrl;
-    //        link.setAttribute('download', '성공.pdf');
-    //        document.body.appendChild(link);
-    //        link.click();
-    //        link.remove();
-    //      })
-    //      .catch((error) => {
-    //        console.error('Error while downloading the PDF:', error);
-    //      });
-  };
+  // const downloadFile = () => {
+  //   alert('일단은 되는지 나중에 확인...');
+  //    fetch('서버 URL', { method: 'GET' })
+  //      .then((res) => res.blob())
+  //      .then((response) => {
+  //        const downloadUrl = window.URL.createObjectURL(new Blob([response]));
+  //        const link = document.createElement('a');
+  //        link.href = downloadUrl;
+  //        link.setAttribute('download', '성공.pdf');
+  //        document.body.appendChild(link);
+  //        link.click();
+  //        link.remove();
+  //      })
+  //      .catch((error) => {
+  //        console.error('Error while downloading the PDF:', error);
+  //      });
+  // };
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center gap-6">
       <div className="relative w-[300px] h-[300px] rounded-full bg-white">

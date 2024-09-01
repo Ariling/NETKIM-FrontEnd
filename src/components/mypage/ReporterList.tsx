@@ -41,12 +41,22 @@ const ReporterList = ({ type, page }: { type: string; page: string }) => {
             <td className="px-4 py-4 text-center">{list.email}</td>
             <td className="px-4 py-4 text-center">{list.reporterName}</td>
             <td className="px-4 py-4 text-center flex justify-center gap-2">
-              <div
-                className="min-w-20 bg-neutral-500 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick"
-                onClick={() => onDelete(list.reporterId)}
+              <button
+                className={`min-w-20 text-center text-white hover:bg-main-color rounded-2xl py-1 m-2 cursor-pointer hover:bg-peach-semiThick active:bg-peach-thick ${
+                  list.memberIdx === 0
+                    ? 'bg-neutral-500 hover:bg-neutral-500 active:bg-neutral-500'
+                    : 'bg-peach'
+                }`}
+                disabled={list.memberIdx === 0}
+                onClick={() => {
+                  if (list.memberIdx === 0) {
+                  } else {
+                    onDelete(list.reporterId);
+                  }
+                }}
               >
                 삭제하기
-              </div>
+              </button>
             </td>
           </tr>
         ))

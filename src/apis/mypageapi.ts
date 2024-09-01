@@ -49,3 +49,15 @@ export const getMemberApi = async () => {
     }
   }
 };
+
+export const checkMemberApi = async () => {
+  try {
+    const response = await apiClient.get(`${SERVER_URL}/api-member/check-level`);
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const result = error.response;
+      return result;
+    }
+  }
+};

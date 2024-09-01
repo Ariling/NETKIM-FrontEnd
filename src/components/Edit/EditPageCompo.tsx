@@ -3,9 +3,9 @@ import EditTextArea from './EditTextArea';
 import Btn from '../common/Btn';
 import { Dispatch, useEffect, useState } from 'react';
 import { NumAction, NumberReducer } from '@/store/editReducer';
-import preview from '@assets/img/Preview.webp';
 import { useEditStore } from '@/store/useEditStore';
 import { getPrfInfoApi, postPressReleaseApi, previewApi } from '@/apis/pressapi';
+import ImgDiv from '../common/ImgDiv';
 
 interface IPreview {
   poster: string;
@@ -155,10 +155,7 @@ const EditPageCompo = (
           </div>
         ) : (
           <div className="flex justify-center items-center flex-col h-full gap-6">
-            <img src={preview} alt="미리보기 이미지" width={148} height={128} />
-            <div className="text-gray-500 font-semibold text-lg">
-              프리뷰 생성하기를 눌러 미리 확인해보세요
-            </div>
+            <ImgDiv type="edit" text="프리뷰 생성하기를 눌러 미리 확인해보세요" />
           </div>
         )}
       </Card>

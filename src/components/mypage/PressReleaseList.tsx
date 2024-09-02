@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getPressReleaseApi, sendPressReleaseApi } from '@/apis/pressapi';
 import { useNavigate } from 'react-router-dom';
 import { useEditStore } from '@/store/useEditStore';
+import dayjs from 'dayjs';
 
 const PressReleaseList = () => {
   const [dataList, setDataList] = useState<Array<any>>([]);
@@ -60,6 +61,9 @@ const PressReleaseList = () => {
             </th>
             <td className="px-4 py-4 text-center">{list.performance.prfnm}</td>
             <td className="px-4 py-4 text-center">{list.performance.prfstate}</td>
+            <td className="px-4 py-4 text-center">
+              {dayjs(list.performance.updateDate).format('YYYY-MM-DD')}
+            </td>
             <td className="px-3 py-4 text-center">
               <Download
                 className="inline-block cursor-pointer"

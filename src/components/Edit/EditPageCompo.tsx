@@ -92,8 +92,8 @@ const EditPageCompo = (
     }
   };
   return (
-    <div className="mt-20 w-full h-full flex justify-center gap-12">
-      <Card name="Edit툴" className="min-w-[510px] max-h-[907px]">
+    <div className="my-20 w-full h-full flex justify-center gap-12">
+      <Card name="Edit툴" className="min-w-[510px] h-[907px]">
         <div className="flex items-center h-[8%] w-full px-6 py-5 font-bold text-3xl">Edit</div>
         <div className="px-[31px] w-full">
           {editArray.map((e, index) => {
@@ -132,7 +132,7 @@ const EditPageCompo = (
           />
         </div>
       </Card>
-      <Card name="미리보기" className="relative w-[672px] max-h-[907px]">
+      <Card name="미리보기" className="relative w-[672px] h-[907px]">
         {show ? (
           <div className="w-full h-full">
             <div className="px-4 py-6 flex flex-col overflow-y-scroll">

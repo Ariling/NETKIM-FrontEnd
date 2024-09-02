@@ -37,6 +37,7 @@ const ReporterSetting = ({ type }: { type: string }) => {
       alert('추가 성공');
       dispatch({ type: 'RESET' });
       setName({ type: 'RESET' });
+      router(0);
     } else {
       alert('에러발생');
     }
@@ -75,7 +76,6 @@ const ReporterSetting = ({ type }: { type: string }) => {
             onClick={() => {
               if (isValidEmail && name.trim().length > 0) {
                 postReporter();
-                router(0);
               } else {
                 alert('이메일 주소를 입력하거나 이름을 입력해주세요.');
               }

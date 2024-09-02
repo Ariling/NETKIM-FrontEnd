@@ -1,9 +1,17 @@
 import Loading from '@/components/common/Loading';
 import MyPageView from '@/components/mypage/MypageView';
 import { useEditStore } from '@/store/useEditStore';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const { open } = useEditStore((state) => state.states);
+  useEffect(() => {
+    if (!localStorage.getItem('accessToken')) {
+      navigate('/login');
+    }
+  }, []);
   return (
     <>
       <div className="inline-block w-full min-h-[calc(100vh-56px)]">

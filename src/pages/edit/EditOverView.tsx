@@ -41,6 +41,19 @@ const EditOverView = () => {
     };
   }, [handleBeforeUnload, navigate, location]);
 
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      let info = JSON.parse(atob(localStorage.getItem('accessToken')!.split(' ')[1].split('.')[1]));
+      if (info['USER_ROLE'] === 'MEMBER') {
+        alert('등업이 완료된 후 이용할 수 있습니다');
+        navigate('/mypage');
+        localStorage.setItem('activeButton', '프로필');
+      }
+    } else {
+      navigate('/login');
+    }
+  }, []);
+
   const [step, dispatch] = useReducer(reducer, 1);
   const [id, setId] = useReducer(reducer, 0);
   const getEditPage = (num: number) => {

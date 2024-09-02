@@ -28,7 +28,6 @@ const LoginCompo = () => {
     } else {
       localStorage.setItem('accessToken', result.data);
       navigate('/', { replace: true });
-      alert('로그인 성공!');
     }
   };
   return (

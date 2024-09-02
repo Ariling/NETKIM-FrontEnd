@@ -24,7 +24,7 @@ const MainPage = () => {
           className="w-full h-full object-contain opacity-[64%]"
         />
       </div>
-      <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="absolute top-[70%] left-1/2 -translate-x-1/2 -translate-y-1/2">
         {/* 이건 중앙에 있게 할거지만 지금은 이 상태로 냅두기 */}
         <div className="w-full h-24">
           <Button

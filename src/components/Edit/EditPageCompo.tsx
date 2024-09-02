@@ -92,7 +92,7 @@ const EditPageCompo = (
     }
   };
   return (
-    <div className="my-20 w-full h-full flex justify-center gap-12">
+    <div className="my-20 w-full h-[calc(100vh-80px) flex justify-center gap-12">
       <Card name="Edit툴" className="min-w-[510px] h-[907px]">
         <div className="flex items-center h-[8%] w-full px-6 py-5 font-bold text-3xl">Edit</div>
         <div className="px-[31px] w-full">
